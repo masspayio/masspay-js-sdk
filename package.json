@@ -1,0 +1,32 @@
+{
+  "name": "masspay-js-sdk",
+  "version": "0.1.4",
+  "description": "Client for masspay-js-sdk",
+  "author": "MassPay Inc. <support@masspay.io>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/masspayio/masspay-js-sdk.git"
+  },
+  "keywords": [
+    "axios",
+    "typescript",
+    "masspay-js-sdk"
+  ],
+  "license": "Apache-2.0",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc ",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.5",
+    "typescript": "^4.0"
+  },
+  "publishConfig": {
+    "registry": "https://github.com/masspayio/masspay-js-sdk"
+  }
+}
