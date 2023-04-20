@@ -1,4 +1,4 @@
-<img src="./docs/logo.png" width="200" />
+<img src="./docs/logo.webp" width="200" />
 
 ## masspay-js-sdk ![npm](https://img.shields.io/npm/v/masspay-js-sdk) ![Node](https://img.shields.io/badge/node->=%2012-blue)
 
