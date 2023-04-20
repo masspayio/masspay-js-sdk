@@ -24,10 +24,6 @@ import { Exception } from '../models';
 // @ts-ignore
 import { FoundUser } from '../models';
 // @ts-ignore
-import { GetUserUserTokenKycAu10tix200Response } from '../models';
-// @ts-ignore
-import { GetUserUserTokenKycVeriiff200Response } from '../models';
-// @ts-ignore
 import { StoredUser } from '../models';
 // @ts-ignore
 import { TxnHistoryResp } from '../models';
@@ -42,7 +38,7 @@ import { User } from '../models';
 export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * To create a user, send a `POST` request to the `/user` endpoint and include the user details in JSON format in the request body. Upon creation of a user, you\'ll receive a user_token which would be used to interact with that user.
+         * This **POST** endpoint is used to create a new user in MassPay. <br> You can use this endpoint to create a new user with the specified user details in JSON format in the request Body. <br> To use this endpoint, you need to provide the `internal_user_id`, `country`, `first_name`, `last_name`, and `email` as required parameters in the Request Body. <br> The response will include details about the newly created user.
          * @summary Create a user
          * @param {User} user Created user object
          * @param {*} [options] Override http request option.
@@ -63,12 +59,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -85,7 +77,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Gets a user profile for a provided user token.
+         * This **GET** endpoint is used to retrieve a user\'s profile by their user token in MassPay. <br> You can use this endpoint to obtain a user profile for a specified user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include all available details for the user.
          * @summary Get user by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -108,12 +100,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -131,7 +119,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Retrieve list of all tranasctions (payouts/loads/spendbacks) for a provider user.
+         * This **GET** endpoint is used to retrieve a list of all transactions, including payouts, loads, and spendbacks, for a provider user with the provided user token. <br> You can use this endpoint to obtain a comprehensive history of transactions for the provider user, allowing you to track and analyze their payment activities over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain a JSON array of transaction objects, each including transactions details.
          * @summary Transactions history
          * @param {string} userToken Token representing the user to get transactions history for
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -161,12 +149,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (numberOfRecords !== undefined) {
                 localVarQueryParameter['number_of_records'] = numberOfRecords;
@@ -216,89 +200,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * 
-         * @summary Get an Au10tix session link
-         * @param {string} userToken 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserUserTokenKycAu10tix: async (userToken: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userToken' is not null or undefined
-            assertParamExists('getUserUserTokenKycAu10tix', 'userToken', userToken)
-            const localVarPath = `/user/{user_token}/kyc/au10tix`
-                .replace(`{${"user_token"}}`, encodeURIComponent(String(userToken)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get a Veriff session link
-         * @param {string} userToken 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserUserTokenKycVeriiff: async (userToken: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userToken' is not null or undefined
-            assertParamExists('getUserUserTokenKycVeriiff', 'userToken', userToken)
-            const localVarPath = `/user/{user_token}/kyc/veriff`
-                .replace(`{${"user_token"}}`, encodeURIComponent(String(userToken)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
-            // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Updates profile information for a provided user token.
+         * This **PUT** endpoint is used to update the profile information of a user with the provided user token. <br> You need to provide the `user_token` in the URL path to identify the user whose information you want to update. The updated information should be provided in the request Body as a JSON object. This endpoint can be used to update various profile information, such as the user\'s name, email address, phone number, and more. <br> The response will contain the updated user information in a JSON format.
          * @summary Updated user
          * @param {string} userToken user token that need to be updated
          * @param {UpdateUser} updateUser Updated user object
@@ -324,12 +226,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -350,7 +248,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Looksup whether a user with the provided email and first name exist
+         * This **GET** endpoint is used to lookup whether a user with the provided email and first name exists in the MassPay system. <br> To use this endpoint, you need to provide the `email`, `first_name`, and `internal_user_id` as Query parameters in the URL. <br> The endpoint will then search for the user based on the provided information and return a JSON response indicating whether the user exists or not. If the user exists, the response will also contain the user\'s details, `user_token`, `first_name`, `last_name` and `internal_user_id`.
          * @summary Lookup an existing user
          * @param {string} email User\&#39;s email address. Required if First Name is provided
          * @param {string} firstName User\&#39;s first name. Required if email is provided
@@ -378,12 +276,8 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (email !== undefined) {
                 localVarQueryParameter['email'] = email;
@@ -423,7 +317,7 @@ export const UserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
     return {
         /**
-         * To create a user, send a `POST` request to the `/user` endpoint and include the user details in JSON format in the request body. Upon creation of a user, you\'ll receive a user_token which would be used to interact with that user.
+         * This **POST** endpoint is used to create a new user in MassPay. <br> You can use this endpoint to create a new user with the specified user details in JSON format in the request Body. <br> To use this endpoint, you need to provide the `internal_user_id`, `country`, `first_name`, `last_name`, and `email` as required parameters in the Request Body. <br> The response will include details about the newly created user.
          * @summary Create a user
          * @param {User} user Created user object
          * @param {*} [options] Override http request option.
@@ -434,7 +328,7 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Gets a user profile for a provided user token.
+         * This **GET** endpoint is used to retrieve a user\'s profile by their user token in MassPay. <br> You can use this endpoint to obtain a user profile for a specified user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include all available details for the user.
          * @summary Get user by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -446,7 +340,7 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Retrieve list of all tranasctions (payouts/loads/spendbacks) for a provider user.
+         * This **GET** endpoint is used to retrieve a list of all transactions, including payouts, loads, and spendbacks, for a provider user with the provided user token. <br> You can use this endpoint to obtain a comprehensive history of transactions for the provider user, allowing you to track and analyze their payment activities over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain a JSON array of transaction objects, each including transactions details.
          * @summary Transactions history
          * @param {string} userToken Token representing the user to get transactions history for
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -465,29 +359,7 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
-         * @summary Get an Au10tix session link
-         * @param {string} userToken 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getUserUserTokenKycAu10tix(userToken: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserUserTokenKycAu10tix200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserUserTokenKycAu10tix(userToken, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get a Veriff session link
-         * @param {string} userToken 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getUserUserTokenKycVeriiff(userToken: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserUserTokenKycVeriiff200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserUserTokenKycVeriiff(userToken, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Updates profile information for a provided user token.
+         * This **PUT** endpoint is used to update the profile information of a user with the provided user token. <br> You need to provide the `user_token` in the URL path to identify the user whose information you want to update. The updated information should be provided in the request Body as a JSON object. This endpoint can be used to update various profile information, such as the user\'s name, email address, phone number, and more. <br> The response will contain the updated user information in a JSON format.
          * @summary Updated user
          * @param {string} userToken user token that need to be updated
          * @param {UpdateUser} updateUser Updated user object
@@ -500,7 +372,7 @@ export const UserApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Looksup whether a user with the provided email and first name exist
+         * This **GET** endpoint is used to lookup whether a user with the provided email and first name exists in the MassPay system. <br> To use this endpoint, you need to provide the `email`, `first_name`, and `internal_user_id` as Query parameters in the URL. <br> The endpoint will then search for the user based on the provided information and return a JSON response indicating whether the user exists or not. If the user exists, the response will also contain the user\'s details, `user_token`, `first_name`, `last_name` and `internal_user_id`.
          * @summary Lookup an existing user
          * @param {string} email User\&#39;s email address. Required if First Name is provided
          * @param {string} firstName User\&#39;s first name. Required if email is provided
@@ -524,7 +396,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = UserApiFp(configuration)
     return {
         /**
-         * To create a user, send a `POST` request to the `/user` endpoint and include the user details in JSON format in the request body. Upon creation of a user, you\'ll receive a user_token which would be used to interact with that user.
+         * This **POST** endpoint is used to create a new user in MassPay. <br> You can use this endpoint to create a new user with the specified user details in JSON format in the request Body. <br> To use this endpoint, you need to provide the `internal_user_id`, `country`, `first_name`, `last_name`, and `email` as required parameters in the Request Body. <br> The response will include details about the newly created user.
          * @summary Create a user
          * @param {User} user Created user object
          * @param {*} [options] Override http request option.
@@ -534,7 +406,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.createUser(user, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets a user profile for a provided user token.
+         * This **GET** endpoint is used to retrieve a user\'s profile by their user token in MassPay. <br> You can use this endpoint to obtain a user profile for a specified user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include all available details for the user.
          * @summary Get user by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -545,7 +417,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.getUserByToken(userToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve list of all tranasctions (payouts/loads/spendbacks) for a provider user.
+         * This **GET** endpoint is used to retrieve a list of all transactions, including payouts, loads, and spendbacks, for a provider user with the provided user token. <br> You can use this endpoint to obtain a comprehensive history of transactions for the provider user, allowing you to track and analyze their payment activities over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain a JSON array of transaction objects, each including transactions details.
          * @summary Transactions history
          * @param {string} userToken Token representing the user to get transactions history for
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -563,27 +435,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.getUserHistory(userToken, idempotencyKey, numberOfRecords, startDate, endDate, page, type, walletToken, showAllClients, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
-         * @summary Get an Au10tix session link
-         * @param {string} userToken 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserUserTokenKycAu10tix(userToken: string, options?: any): AxiosPromise<GetUserUserTokenKycAu10tix200Response> {
-            return localVarFp.getUserUserTokenKycAu10tix(userToken, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get a Veriff session link
-         * @param {string} userToken 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getUserUserTokenKycVeriiff(userToken: string, options?: any): AxiosPromise<GetUserUserTokenKycVeriiff200Response> {
-            return localVarFp.getUserUserTokenKycVeriiff(userToken, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Updates profile information for a provided user token.
+         * This **PUT** endpoint is used to update the profile information of a user with the provided user token. <br> You need to provide the `user_token` in the URL path to identify the user whose information you want to update. The updated information should be provided in the request Body as a JSON object. This endpoint can be used to update various profile information, such as the user\'s name, email address, phone number, and more. <br> The response will contain the updated user information in a JSON format.
          * @summary Updated user
          * @param {string} userToken user token that need to be updated
          * @param {UpdateUser} updateUser Updated user object
@@ -595,7 +447,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.updateUser(userToken, updateUser, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Looksup whether a user with the provided email and first name exist
+         * This **GET** endpoint is used to lookup whether a user with the provided email and first name exists in the MassPay system. <br> To use this endpoint, you need to provide the `email`, `first_name`, and `internal_user_id` as Query parameters in the URL. <br> The endpoint will then search for the user based on the provided information and return a JSON response indicating whether the user exists or not. If the user exists, the response will also contain the user\'s details, `user_token`, `first_name`, `last_name` and `internal_user_id`.
          * @summary Lookup an existing user
          * @param {string} email User\&#39;s email address. Required if First Name is provided
          * @param {string} firstName User\&#39;s first name. Required if email is provided
@@ -618,7 +470,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
  */
 export class UserApi extends BaseAPI {
     /**
-     * To create a user, send a `POST` request to the `/user` endpoint and include the user details in JSON format in the request body. Upon creation of a user, you\'ll receive a user_token which would be used to interact with that user.
+     * This **POST** endpoint is used to create a new user in MassPay. <br> You can use this endpoint to create a new user with the specified user details in JSON format in the request Body. <br> To use this endpoint, you need to provide the `internal_user_id`, `country`, `first_name`, `last_name`, and `email` as required parameters in the Request Body. <br> The response will include details about the newly created user.
      * @summary Create a user
      * @param {User} user Created user object
      * @param {*} [options] Override http request option.
@@ -630,7 +482,7 @@ export class UserApi extends BaseAPI {
     }
 
     /**
-     * Gets a user profile for a provided user token.
+     * This **GET** endpoint is used to retrieve a user\'s profile by their user token in MassPay. <br> You can use this endpoint to obtain a user profile for a specified user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include all available details for the user.
      * @summary Get user by user token
      * @param {string} userToken The user token that needs to be fetched.
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -643,7 +495,7 @@ export class UserApi extends BaseAPI {
     }
 
     /**
-     * Retrieve list of all tranasctions (payouts/loads/spendbacks) for a provider user.
+     * This **GET** endpoint is used to retrieve a list of all transactions, including payouts, loads, and spendbacks, for a provider user with the provided user token. <br> You can use this endpoint to obtain a comprehensive history of transactions for the provider user, allowing you to track and analyze their payment activities over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain a JSON array of transaction objects, each including transactions details.
      * @summary Transactions history
      * @param {string} userToken Token representing the user to get transactions history for
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -663,31 +515,7 @@ export class UserApi extends BaseAPI {
     }
 
     /**
-     * 
-     * @summary Get an Au10tix session link
-     * @param {string} userToken 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public getUserUserTokenKycAu10tix(userToken: string, options?: AxiosRequestConfig) {
-        return UserApiFp(this.configuration).getUserUserTokenKycAu10tix(userToken, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get a Veriff session link
-     * @param {string} userToken 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public getUserUserTokenKycVeriiff(userToken: string, options?: AxiosRequestConfig) {
-        return UserApiFp(this.configuration).getUserUserTokenKycVeriiff(userToken, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Updates profile information for a provided user token.
+     * This **PUT** endpoint is used to update the profile information of a user with the provided user token. <br> You need to provide the `user_token` in the URL path to identify the user whose information you want to update. The updated information should be provided in the request Body as a JSON object. This endpoint can be used to update various profile information, such as the user\'s name, email address, phone number, and more. <br> The response will contain the updated user information in a JSON format.
      * @summary Updated user
      * @param {string} userToken user token that need to be updated
      * @param {UpdateUser} updateUser Updated user object
@@ -701,7 +529,7 @@ export class UserApi extends BaseAPI {
     }
 
     /**
-     * Looksup whether a user with the provided email and first name exist
+     * This **GET** endpoint is used to lookup whether a user with the provided email and first name exists in the MassPay system. <br> To use this endpoint, you need to provide the `email`, `first_name`, and `internal_user_id` as Query parameters in the URL. <br> The endpoint will then search for the user based on the provided information and return a JSON response indicating whether the user exists or not. If the user exists, the response will also contain the user\'s details, `user_token`, `first_name`, `last_name` and `internal_user_id`.
      * @summary Lookup an existing user
      * @param {string} email User\&#39;s email address. Required if First Name is provided
      * @param {string} firstName User\&#39;s first name. Required if email is provided

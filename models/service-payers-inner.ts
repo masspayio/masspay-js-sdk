@@ -52,13 +52,13 @@ export interface ServicePayersInner {
      */
     'fee': number;
     /**
-     * The maximum amount the user can send with this service. 0 if no upper limit
+     * The maximum amount (inclusive) the user can send with this service. 0 if no upper limit
      * @type {number}
      * @memberof ServicePayersInner
      */
     'max_limit': number;
     /**
-     * The minimum amount the user can send with this service. 0 if no lower limit
+     * The minimum amount (inclusive) the user can send with this service. 0 if no lower limit
      * @type {number}
      * @memberof ServicePayersInner
      */

@@ -36,7 +36,7 @@ import { PayoutTxnResp } from '../models';
 export const PayoutApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Commits a previously initiated transaction.
+         * This **PUT** endpoint is used to commit a previously created payout transaction. <br> Once a payout transaction is created, you can use this endpoint to commit the transaction and initiate the actual payout. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` of the payout transaction you want to commit in the URL Path. <br> The response will include a JSON object containing details about the committed payout transaction, including the `payout_token`, `payout_status`, `pickup_code` and possible errors.
          * @summary Commit payout transaction
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -63,12 +63,8 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -86,16 +82,17 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Retrieves information including status update for a payout token
+         * This **GET** endpoint is used to retrieve the status of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to check the status of a specific payout transaction, including whether the payout has been successfully processed or if there was an error. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a JSON object containing details about the payout transaction.
          * @summary Get status of a payout by payout token
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
          * @param {boolean} [forceStatusUpdate] Attempts to get an updated status update from the payout destination
+         * @param {boolean} [includePayerLogo] Whether to include the payer logo in base64 format. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPayoutStatus: async (userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getPayoutStatus: async (userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, includePayerLogo?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userToken' is not null or undefined
             assertParamExists('getPayoutStatus', 'userToken', userToken)
             // verify required parameter 'payoutToken' is not null or undefined
@@ -114,15 +111,15 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (forceStatusUpdate !== undefined) {
                 localVarQueryParameter['force_status_update'] = forceStatusUpdate;
+            }
+
+            if (includePayerLogo !== undefined) {
+                localVarQueryParameter['include_payer_logo'] = includePayerLogo;
             }
 
             if (idempotencyKey != null) {
@@ -141,7 +138,7 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Obtains a PDF with all the details of the payout
+         * This **PATCH** endpoint is used to obtain a PDF document with all the details of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to obtain confirmation details about a specific payout transaction. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a PDF document containing all the details of the payout transaction.
          * @summary Get transaction confirmation details
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -168,12 +165,8 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -191,7 +184,7 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Gets a list of all historical payouts for a provided user token.
+         * This **GET** endpoint is used to retrieve the payout history for a user with the specified token. <br> You can use this endpoint to view all payouts made to a user, including the `payout_token`, `destinantion_token` and `destination_amount`. <br> To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The response will include a JSON object containing an array of payout transactions for the specified user, with each transaction including details such as the transaction ID, payout amount, currency, payout status, and date and time of the payout.
          * @summary Get history of payouts by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -215,12 +208,8 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (includePayerLogos !== undefined) {
                 localVarQueryParameter['include_payer_logos'] = includePayerLogos;
@@ -242,7 +231,7 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Initiates a payout transaction to a provided user token.
+         * This **POST** endpoint is used to initiate a payout transaction from your account to a user with a specified token. <br> You can use this endpoint to pay out funds to your users, such as payments for services rendered or rewards for completing tasks. To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The request body should include the funding source (`source_token`), payout destination (`destination_token`) and specify in which currency the payout should be made (`destination_currency_code`). <br> As a response API will return all details about your payout transaction.
          * @summary Initiate a payout transaction
          * @param {string} userToken Token representing the user to pay out
          * @param {PayoutTxn} payoutTxn Payout parameters for a quote
@@ -269,12 +258,8 @@ export const PayoutApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
@@ -309,7 +294,7 @@ export const PayoutApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = PayoutApiAxiosParamCreator(configuration)
     return {
         /**
-         * Commits a previously initiated transaction.
+         * This **PUT** endpoint is used to commit a previously created payout transaction. <br> Once a payout transaction is created, you can use this endpoint to commit the transaction and initiate the actual payout. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` of the payout transaction you want to commit in the URL Path. <br> The response will include a JSON object containing details about the committed payout transaction, including the `payout_token`, `payout_status`, `pickup_code` and possible errors.
          * @summary Commit payout transaction
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -322,21 +307,22 @@ export const PayoutApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Retrieves information including status update for a payout token
+         * This **GET** endpoint is used to retrieve the status of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to check the status of a specific payout transaction, including whether the payout has been successfully processed or if there was an error. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a JSON object containing details about the payout transaction.
          * @summary Get status of a payout by payout token
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
          * @param {boolean} [forceStatusUpdate] Attempts to get an updated status update from the payout destination
+         * @param {boolean} [includePayerLogo] Whether to include the payer logo in base64 format. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPayoutStatus(userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutTxnResp>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPayoutStatus(userToken, payoutToken, idempotencyKey, forceStatusUpdate, options);
+        async getPayoutStatus(userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, includePayerLogo?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutTxnResp>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPayoutStatus(userToken, payoutToken, idempotencyKey, forceStatusUpdate, includePayerLogo, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Obtains a PDF with all the details of the payout
+         * This **PATCH** endpoint is used to obtain a PDF document with all the details of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to obtain confirmation details about a specific payout transaction. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a PDF document containing all the details of the payout transaction.
          * @summary Get transaction confirmation details
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -349,7 +335,7 @@ export const PayoutApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Gets a list of all historical payouts for a provided user token.
+         * This **GET** endpoint is used to retrieve the payout history for a user with the specified token. <br> You can use this endpoint to view all payouts made to a user, including the `payout_token`, `destinantion_token` and `destination_amount`. <br> To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The response will include a JSON object containing an array of payout transactions for the specified user, with each transaction including details such as the transaction ID, payout amount, currency, payout status, and date and time of the payout.
          * @summary Get history of payouts by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -362,7 +348,7 @@ export const PayoutApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Initiates a payout transaction to a provided user token.
+         * This **POST** endpoint is used to initiate a payout transaction from your account to a user with a specified token. <br> You can use this endpoint to pay out funds to your users, such as payments for services rendered or rewards for completing tasks. To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The request body should include the funding source (`source_token`), payout destination (`destination_token`) and specify in which currency the payout should be made (`destination_currency_code`). <br> As a response API will return all details about your payout transaction.
          * @summary Initiate a payout transaction
          * @param {string} userToken Token representing the user to pay out
          * @param {PayoutTxn} payoutTxn Payout parameters for a quote
@@ -386,7 +372,7 @@ export const PayoutApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = PayoutApiFp(configuration)
     return {
         /**
-         * Commits a previously initiated transaction.
+         * This **PUT** endpoint is used to commit a previously created payout transaction. <br> Once a payout transaction is created, you can use this endpoint to commit the transaction and initiate the actual payout. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` of the payout transaction you want to commit in the URL Path. <br> The response will include a JSON object containing details about the committed payout transaction, including the `payout_token`, `payout_status`, `pickup_code` and possible errors.
          * @summary Commit payout transaction
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -398,20 +384,21 @@ export const PayoutApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.commitPayoutTxn(userToken, payoutToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves information including status update for a payout token
+         * This **GET** endpoint is used to retrieve the status of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to check the status of a specific payout transaction, including whether the payout has been successfully processed or if there was an error. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a JSON object containing details about the payout transaction.
          * @summary Get status of a payout by payout token
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
          * @param {boolean} [forceStatusUpdate] Attempts to get an updated status update from the payout destination
+         * @param {boolean} [includePayerLogo] Whether to include the payer logo in base64 format. 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPayoutStatus(userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, options?: any): AxiosPromise<PayoutTxnResp> {
-            return localVarFp.getPayoutStatus(userToken, payoutToken, idempotencyKey, forceStatusUpdate, options).then((request) => request(axios, basePath));
+        getPayoutStatus(userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, includePayerLogo?: boolean, options?: any): AxiosPromise<PayoutTxnResp> {
+            return localVarFp.getPayoutStatus(userToken, payoutToken, idempotencyKey, forceStatusUpdate, includePayerLogo, options).then((request) => request(axios, basePath));
         },
         /**
-         * Obtains a PDF with all the details of the payout
+         * This **PATCH** endpoint is used to obtain a PDF document with all the details of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to obtain confirmation details about a specific payout transaction. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a PDF document containing all the details of the payout transaction.
          * @summary Get transaction confirmation details
          * @param {string} userToken Token representing the user to pay out
          * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -423,7 +410,7 @@ export const PayoutApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getTransactionConfirmationDetails(userToken, payoutToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets a list of all historical payouts for a provided user token.
+         * This **GET** endpoint is used to retrieve the payout history for a user with the specified token. <br> You can use this endpoint to view all payouts made to a user, including the `payout_token`, `destinantion_token` and `destination_amount`. <br> To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The response will include a JSON object containing an array of payout transactions for the specified user, with each transaction including details such as the transaction ID, payout amount, currency, payout status, and date and time of the payout.
          * @summary Get history of payouts by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -435,7 +422,7 @@ export const PayoutApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getUserPayoutsByToken(userToken, idempotencyKey, includePayerLogos, options).then((request) => request(axios, basePath));
         },
         /**
-         * Initiates a payout transaction to a provided user token.
+         * This **POST** endpoint is used to initiate a payout transaction from your account to a user with a specified token. <br> You can use this endpoint to pay out funds to your users, such as payments for services rendered or rewards for completing tasks. To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The request body should include the funding source (`source_token`), payout destination (`destination_token`) and specify in which currency the payout should be made (`destination_currency_code`). <br> As a response API will return all details about your payout transaction.
          * @summary Initiate a payout transaction
          * @param {string} userToken Token representing the user to pay out
          * @param {PayoutTxn} payoutTxn Payout parameters for a quote
@@ -458,7 +445,7 @@ export const PayoutApiFactory = function (configuration?: Configuration, basePat
  */
 export class PayoutApi extends BaseAPI {
     /**
-     * Commits a previously initiated transaction.
+     * This **PUT** endpoint is used to commit a previously created payout transaction. <br> Once a payout transaction is created, you can use this endpoint to commit the transaction and initiate the actual payout. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` of the payout transaction you want to commit in the URL Path. <br> The response will include a JSON object containing details about the committed payout transaction, including the `payout_token`, `payout_status`, `pickup_code` and possible errors.
      * @summary Commit payout transaction
      * @param {string} userToken Token representing the user to pay out
      * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -472,22 +459,23 @@ export class PayoutApi extends BaseAPI {
     }
 
     /**
-     * Retrieves information including status update for a payout token
+     * This **GET** endpoint is used to retrieve the status of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to check the status of a specific payout transaction, including whether the payout has been successfully processed or if there was an error. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a JSON object containing details about the payout transaction.
      * @summary Get status of a payout by payout token
      * @param {string} userToken Token representing the user to pay out
      * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
      * @param {boolean} [forceStatusUpdate] Attempts to get an updated status update from the payout destination
+     * @param {boolean} [includePayerLogo] Whether to include the payer logo in base64 format. 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PayoutApi
      */
-    public getPayoutStatus(userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, options?: AxiosRequestConfig) {
-        return PayoutApiFp(this.configuration).getPayoutStatus(userToken, payoutToken, idempotencyKey, forceStatusUpdate, options).then((request) => request(this.axios, this.basePath));
+    public getPayoutStatus(userToken: string, payoutToken: string, idempotencyKey?: string, forceStatusUpdate?: boolean, includePayerLogo?: boolean, options?: AxiosRequestConfig) {
+        return PayoutApiFp(this.configuration).getPayoutStatus(userToken, payoutToken, idempotencyKey, forceStatusUpdate, includePayerLogo, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Obtains a PDF with all the details of the payout
+     * This **PATCH** endpoint is used to obtain a PDF document with all the details of a payout transaction for a user with the specified token and payout token. <br> You can use this endpoint to obtain confirmation details about a specific payout transaction. <br> To use this endpoint, you need to provide the `user_token` and `payout_token` in the URL Path. <br> The response will include a PDF document containing all the details of the payout transaction.
      * @summary Get transaction confirmation details
      * @param {string} userToken Token representing the user to pay out
      * @param {string} payoutToken Token representing the trsanaction. Retrieved from &#x60;/payout/{user_token}&#x60;
@@ -501,7 +489,7 @@ export class PayoutApi extends BaseAPI {
     }
 
     /**
-     * Gets a list of all historical payouts for a provided user token.
+     * This **GET** endpoint is used to retrieve the payout history for a user with the specified token. <br> You can use this endpoint to view all payouts made to a user, including the `payout_token`, `destinantion_token` and `destination_amount`. <br> To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The response will include a JSON object containing an array of payout transactions for the specified user, with each transaction including details such as the transaction ID, payout amount, currency, payout status, and date and time of the payout.
      * @summary Get history of payouts by user token
      * @param {string} userToken The user token that needs to be fetched.
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -515,7 +503,7 @@ export class PayoutApi extends BaseAPI {
     }
 
     /**
-     * Initiates a payout transaction to a provided user token.
+     * This **POST** endpoint is used to initiate a payout transaction from your account to a user with a specified token. <br> You can use this endpoint to pay out funds to your users, such as payments for services rendered or rewards for completing tasks. To use this endpoint, you need to provide the user token of the recipient in the URL Path. <br> The request body should include the funding source (`source_token`), payout destination (`destination_token`) and specify in which currency the payout should be made (`destination_currency_code`). <br> As a response API will return all details about your payout transaction.
      * @summary Initiate a payout transaction
      * @param {string} userToken Token representing the user to pay out
      * @param {PayoutTxn} payoutTxn Payout parameters for a quote

@@ -24,7 +24,9 @@ import { AttrVelocityRequestInner } from '../models';
 // @ts-ignore
 import { GetUserUserTokenKycAu10tix200Response } from '../models';
 // @ts-ignore
-import { GetUserUserTokenKycVeriiff200Response } from '../models';
+import { GetUserUserTokenKycVeriff200Response } from '../models';
+// @ts-ignore
+import { IDUpload } from '../models';
 /**
  * KYCApi - axios parameter creator
  * @export
@@ -32,7 +34,7 @@ import { GetUserUserTokenKycVeriiff200Response } from '../models';
 export const KYCApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Identify users with matching attribute values
+         * This **POST** endpoint is used to perform an attributes velocity check to identify users with matching attribute values. <br> You can use this endpoint to help prevent fraudulent activities by monitoring for unusual attribute value changes over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL path and the required parameters in the request Body. <br> The endpoint will then compare the provided attribute value with the historical attribute values for the same user and determine if it meets the velocity check criteria.
          * @summary Attributes velocity check
          * @param {string} userToken Token representing the user to retrieve attributes for
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -56,12 +58,8 @@ export const KYCApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -82,7 +80,7 @@ export const KYCApiAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * 
+         * This **GET** endpoint is used to obtain a link to an Au10tix session for the user with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Au10tix platform. <br> The response will contain the session link as a URL in a JSON format.
          * @summary Get an Au10tix session link
          * @param {string} userToken 
          * @param {*} [options] Override http request option.
@@ -104,12 +102,8 @@ export const KYCApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -123,15 +117,15 @@ export const KYCApiAxiosParamCreator = function (configuration?: Configuration) 
             };
         },
         /**
-         * 
+         * This **GET** endpoint is used to obtain a link to a Veriff session for the user with the provided user token. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Veriff platform. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain the session link as a URL in a JSON format.
          * @summary Get a Veriff session link
          * @param {string} userToken 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserUserTokenKycVeriiff: async (userToken: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUserUserTokenKycVeriff: async (userToken: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userToken' is not null or undefined
-            assertParamExists('getUserUserTokenKycVeriiff', 'userToken', userToken)
+            assertParamExists('getUserUserTokenKycVeriff', 'userToken', userToken)
             const localVarPath = `/user/{user_token}/kyc/veriff`
                 .replace(`{${"user_token"}}`, encodeURIComponent(String(userToken)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -145,18 +139,55 @@ export const KYCApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Upload IDs for the provided user. This is an optional endpoint if the images are captured through means other than the link that is generated in the attributes.
+         * @summary Upload ID Photos
+         * @param {string} userToken 
+         * @param {Array<IDUpload>} [iDUpload] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadIdPhotos: async (userToken: string, iDUpload?: Array<IDUpload>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userToken' is not null or undefined
+            assertParamExists('uploadIdPhotos', 'userToken', userToken)
+            const localVarPath = `/user/{user_token}/kyc/id`
+                .replace(`{${"user_token"}}`, encodeURIComponent(String(userToken)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AUTHORIZER_NAME required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(iDUpload, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -174,7 +205,7 @@ export const KYCApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = KYCApiAxiosParamCreator(configuration)
     return {
         /**
-         * Identify users with matching attribute values
+         * This **POST** endpoint is used to perform an attributes velocity check to identify users with matching attribute values. <br> You can use this endpoint to help prevent fraudulent activities by monitoring for unusual attribute value changes over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL path and the required parameters in the request Body. <br> The endpoint will then compare the provided attribute value with the historical attribute values for the same user and determine if it meets the velocity check criteria.
          * @summary Attributes velocity check
          * @param {string} userToken Token representing the user to retrieve attributes for
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -187,7 +218,7 @@ export const KYCApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * This **GET** endpoint is used to obtain a link to an Au10tix session for the user with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Au10tix platform. <br> The response will contain the session link as a URL in a JSON format.
          * @summary Get an Au10tix session link
          * @param {string} userToken 
          * @param {*} [options] Override http request option.
@@ -198,14 +229,26 @@ export const KYCApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * This **GET** endpoint is used to obtain a link to a Veriff session for the user with the provided user token. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Veriff platform. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain the session link as a URL in a JSON format.
          * @summary Get a Veriff session link
          * @param {string} userToken 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserUserTokenKycVeriiff(userToken: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserUserTokenKycVeriiff200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserUserTokenKycVeriiff(userToken, options);
+        async getUserUserTokenKycVeriff(userToken: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUserUserTokenKycVeriff200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserUserTokenKycVeriff(userToken, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Upload IDs for the provided user. This is an optional endpoint if the images are captured through means other than the link that is generated in the attributes.
+         * @summary Upload ID Photos
+         * @param {string} userToken 
+         * @param {Array<IDUpload>} [iDUpload] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadIdPhotos(userToken: string, iDUpload?: Array<IDUpload>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadIdPhotos(userToken, iDUpload, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -219,7 +262,7 @@ export const KYCApiFactory = function (configuration?: Configuration, basePath?:
     const localVarFp = KYCApiFp(configuration)
     return {
         /**
-         * Identify users with matching attribute values
+         * This **POST** endpoint is used to perform an attributes velocity check to identify users with matching attribute values. <br> You can use this endpoint to help prevent fraudulent activities by monitoring for unusual attribute value changes over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL path and the required parameters in the request Body. <br> The endpoint will then compare the provided attribute value with the historical attribute values for the same user and determine if it meets the velocity check criteria.
          * @summary Attributes velocity check
          * @param {string} userToken Token representing the user to retrieve attributes for
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -231,7 +274,7 @@ export const KYCApiFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.findAttributesVelocity(userToken, idempotencyKey, attrVelocityRequestInner, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * This **GET** endpoint is used to obtain a link to an Au10tix session for the user with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Au10tix platform. <br> The response will contain the session link as a URL in a JSON format.
          * @summary Get an Au10tix session link
          * @param {string} userToken 
          * @param {*} [options] Override http request option.
@@ -241,14 +284,25 @@ export const KYCApiFactory = function (configuration?: Configuration, basePath?:
             return localVarFp.getUserUserTokenKycAu10tix(userToken, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * This **GET** endpoint is used to obtain a link to a Veriff session for the user with the provided user token. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Veriff platform. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain the session link as a URL in a JSON format.
          * @summary Get a Veriff session link
          * @param {string} userToken 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserUserTokenKycVeriiff(userToken: string, options?: any): AxiosPromise<GetUserUserTokenKycVeriiff200Response> {
-            return localVarFp.getUserUserTokenKycVeriiff(userToken, options).then((request) => request(axios, basePath));
+        getUserUserTokenKycVeriff(userToken: string, options?: any): AxiosPromise<GetUserUserTokenKycVeriff200Response> {
+            return localVarFp.getUserUserTokenKycVeriff(userToken, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Upload IDs for the provided user. This is an optional endpoint if the images are captured through means other than the link that is generated in the attributes.
+         * @summary Upload ID Photos
+         * @param {string} userToken 
+         * @param {Array<IDUpload>} [iDUpload] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadIdPhotos(userToken: string, iDUpload?: Array<IDUpload>, options?: any): AxiosPromise<object> {
+            return localVarFp.uploadIdPhotos(userToken, iDUpload, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -261,7 +315,7 @@ export const KYCApiFactory = function (configuration?: Configuration, basePath?:
  */
 export class KYCApi extends BaseAPI {
     /**
-     * Identify users with matching attribute values
+     * This **POST** endpoint is used to perform an attributes velocity check to identify users with matching attribute values. <br> You can use this endpoint to help prevent fraudulent activities by monitoring for unusual attribute value changes over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL path and the required parameters in the request Body. <br> The endpoint will then compare the provided attribute value with the historical attribute values for the same user and determine if it meets the velocity check criteria.
      * @summary Attributes velocity check
      * @param {string} userToken Token representing the user to retrieve attributes for
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -275,7 +329,7 @@ export class KYCApi extends BaseAPI {
     }
 
     /**
-     * 
+     * This **GET** endpoint is used to obtain a link to an Au10tix session for the user with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Au10tix platform. <br> The response will contain the session link as a URL in a JSON format.
      * @summary Get an Au10tix session link
      * @param {string} userToken 
      * @param {*} [options] Override http request option.
@@ -287,14 +341,27 @@ export class KYCApi extends BaseAPI {
     }
 
     /**
-     * 
+     * This **GET** endpoint is used to obtain a link to a Veriff session for the user with the provided user token. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Veriff platform. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain the session link as a URL in a JSON format.
      * @summary Get a Veriff session link
      * @param {string} userToken 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof KYCApi
      */
-    public getUserUserTokenKycVeriiff(userToken: string, options?: AxiosRequestConfig) {
-        return KYCApiFp(this.configuration).getUserUserTokenKycVeriiff(userToken, options).then((request) => request(this.axios, this.basePath));
+    public getUserUserTokenKycVeriff(userToken: string, options?: AxiosRequestConfig) {
+        return KYCApiFp(this.configuration).getUserUserTokenKycVeriff(userToken, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Upload IDs for the provided user. This is an optional endpoint if the images are captured through means other than the link that is generated in the attributes.
+     * @summary Upload ID Photos
+     * @param {string} userToken 
+     * @param {Array<IDUpload>} [iDUpload] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KYCApi
+     */
+    public uploadIdPhotos(userToken: string, iDUpload?: Array<IDUpload>, options?: AxiosRequestConfig) {
+        return KYCApiFp(this.configuration).uploadIdPhotos(userToken, iDUpload, options).then((request) => request(this.axios, this.basePath));
     }
 }

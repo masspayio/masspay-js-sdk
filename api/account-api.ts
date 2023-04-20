@@ -30,7 +30,7 @@ import { GetAccountStatement200Response } from '../models';
 export const AccountApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Retrieves the current available balances.
+         * This **GET** endpoint is used to retrieve the current available balance for the MassPay account. <br> You can use this endpoint to obtain information about the current balance in your account. <br> There are no required parameters needed to access this endpoint. <br> The response will include a JSON objects containing details for the current available balance, including the token, balance and `currency_code`.
          * @summary Get current available balance
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -48,12 +48,8 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -67,7 +63,7 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Retreived a certified PDF ledger statement for a provided timeframe
+         * This **GET** endpoint is used to retrieve a certified PDF ledger statement for a provided timeframe. <br> You can use this endpoint to obtain a ledger statement for your MassPay account for a specific time period. <br> To use this endpoint, you need to provide the `start_date` and `ending_date` as required parameters in the Query string of the URL. <br> The response will include a certified PDF ledger statement containing transaction details for the specified timeframe.
          * @summary Get certified account statement
          * @param {string} startDate Starting date of the statement
          * @param {string} endingDate Ending date of the statement (not more than 31 days than &#x60;start_date&#x60;)
@@ -91,12 +87,8 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (startDate !== undefined) {
                 localVarQueryParameter['start_date'] = (startDate as any instanceof Date) ?
@@ -132,7 +124,7 @@ export const AccountApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AccountApiAxiosParamCreator(configuration)
     return {
         /**
-         * Retrieves the current available balances.
+         * This **GET** endpoint is used to retrieve the current available balance for the MassPay account. <br> You can use this endpoint to obtain information about the current balance in your account. <br> There are no required parameters needed to access this endpoint. <br> The response will include a JSON objects containing details for the current available balance, including the token, balance and `currency_code`.
          * @summary Get current available balance
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -142,7 +134,7 @@ export const AccountApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Retreived a certified PDF ledger statement for a provided timeframe
+         * This **GET** endpoint is used to retrieve a certified PDF ledger statement for a provided timeframe. <br> You can use this endpoint to obtain a ledger statement for your MassPay account for a specific time period. <br> To use this endpoint, you need to provide the `start_date` and `ending_date` as required parameters in the Query string of the URL. <br> The response will include a certified PDF ledger statement containing transaction details for the specified timeframe.
          * @summary Get certified account statement
          * @param {string} startDate Starting date of the statement
          * @param {string} endingDate Ending date of the statement (not more than 31 days than &#x60;start_date&#x60;)
@@ -164,7 +156,7 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = AccountApiFp(configuration)
     return {
         /**
-         * Retrieves the current available balances.
+         * This **GET** endpoint is used to retrieve the current available balance for the MassPay account. <br> You can use this endpoint to obtain information about the current balance in your account. <br> There are no required parameters needed to access this endpoint. <br> The response will include a JSON objects containing details for the current available balance, including the token, balance and `currency_code`.
          * @summary Get current available balance
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -173,7 +165,7 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getAccountBalance(options).then((request) => request(axios, basePath));
         },
         /**
-         * Retreived a certified PDF ledger statement for a provided timeframe
+         * This **GET** endpoint is used to retrieve a certified PDF ledger statement for a provided timeframe. <br> You can use this endpoint to obtain a ledger statement for your MassPay account for a specific time period. <br> To use this endpoint, you need to provide the `start_date` and `ending_date` as required parameters in the Query string of the URL. <br> The response will include a certified PDF ledger statement containing transaction details for the specified timeframe.
          * @summary Get certified account statement
          * @param {string} startDate Starting date of the statement
          * @param {string} endingDate Ending date of the statement (not more than 31 days than &#x60;start_date&#x60;)
@@ -194,7 +186,7 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
  */
 export class AccountApi extends BaseAPI {
     /**
-     * Retrieves the current available balances.
+     * This **GET** endpoint is used to retrieve the current available balance for the MassPay account. <br> You can use this endpoint to obtain information about the current balance in your account. <br> There are no required parameters needed to access this endpoint. <br> The response will include a JSON objects containing details for the current available balance, including the token, balance and `currency_code`.
      * @summary Get current available balance
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -205,7 +197,7 @@ export class AccountApi extends BaseAPI {
     }
 
     /**
-     * Retreived a certified PDF ledger statement for a provided timeframe
+     * This **GET** endpoint is used to retrieve a certified PDF ledger statement for a provided timeframe. <br> You can use this endpoint to obtain a ledger statement for your MassPay account for a specific time period. <br> To use this endpoint, you need to provide the `start_date` and `ending_date` as required parameters in the Query string of the URL. <br> The response will include a certified PDF ledger statement containing transaction details for the specified timeframe.
      * @summary Get certified account statement
      * @param {string} startDate Starting date of the statement
      * @param {string} endingDate Ending date of the statement (not more than 31 days than &#x60;start_date&#x60;)

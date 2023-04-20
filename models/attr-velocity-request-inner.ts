@@ -63,7 +63,11 @@ export const AttrVelocityRequestInnerTypeEnum = {
     IdentificationType: 'IdentificationType',
     BankCity: 'BankCity',
     BankState: 'BankState',
-    IdSelfieCollection: 'IDSelfieCollection'
+    IdSelfieCollection: 'IDSelfieCollection',
+    City: 'City',
+    Country: 'Country',
+    IdentificationExpiration: 'IdentificationExpiration',
+    Address1: 'Address1'
 } as const;
 
 export type AttrVelocityRequestInnerTypeEnum = typeof AttrVelocityRequestInnerTypeEnum[keyof typeof AttrVelocityRequestInnerTypeEnum];

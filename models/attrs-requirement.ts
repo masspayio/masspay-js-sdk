@@ -72,6 +72,12 @@ export interface AttrsRequirement {
      * @memberof AttrsRequirement
      */
     'input_type': AttrsRequirementInputTypeEnum;
+    /**
+     * If set to true, it means this was the last value that was used and if no attr_set_token is provided to init payout, this value will be used by default
+     * @type {boolean}
+     * @memberof AttrsRequirement
+     */
+    'last_attr_value_used'?: boolean;
 }
 
 export const AttrsRequirementTypeEnum = {
@@ -105,7 +111,11 @@ export const AttrsRequirementTypeEnum = {
     IdentificationType: 'IdentificationType',
     BankCity: 'BankCity',
     BankState: 'BankState',
-    IdSelfieCollection: 'IDSelfieCollection'
+    IdSelfieCollection: 'IDSelfieCollection',
+    City: 'City',
+    Country: 'Country',
+    IdentificationExpiration: 'IdentificationExpiration',
+    Address1: 'Address1'
 } as const;
 
 export type AttrsRequirementTypeEnum = typeof AttrsRequirementTypeEnum[keyof typeof AttrsRequirementTypeEnum];

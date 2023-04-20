@@ -36,7 +36,7 @@ import { WalletTxnResp } from '../models';
 export const WalletApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+         * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
          * @summary Add autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -63,12 +63,8 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -85,7 +81,7 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Deletes an autopay rule
+         * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
          * @summary Delete autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -114,12 +110,8 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (token !== undefined) {
                 localVarQueryParameter['token'] = token;
@@ -137,7 +129,7 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Obtain list of all autopay rules currently applied to this wallet
+         * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
          * @summary Get all autopay rules
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -163,12 +155,8 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -182,7 +170,7 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Retrieves all available wallets for a provided user token.
+         * This **GET** endpoint is used to retrieve all available wallets for a provided user token. <br> You can use this endpoint to obtain information about the wallets associated with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include a JSON array containing details for each wallet including `user_token`, `balance`, `currency_code`.
          * @summary Retrieve all available wallets for a user
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -205,12 +193,8 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -228,7 +212,7 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Retrieves MassPay card information that is associated with the provided wallet token
+         * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
          * @summary Get MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -254,12 +238,8 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -273,7 +253,7 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Update card pin number or/and status
+         * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
          * @summary Update MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -301,12 +281,8 @@ export const WalletApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (pin !== undefined) {
                 localVarQueryParameter['pin'] = pin;
@@ -338,7 +314,7 @@ export const WalletApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = WalletApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+         * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
          * @summary Add autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -351,7 +327,7 @@ export const WalletApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Deletes an autopay rule
+         * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
          * @summary Delete autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -364,7 +340,7 @@ export const WalletApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Obtain list of all autopay rules currently applied to this wallet
+         * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
          * @summary Get all autopay rules
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -376,7 +352,7 @@ export const WalletApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Retrieves all available wallets for a provided user token.
+         * This **GET** endpoint is used to retrieve all available wallets for a provided user token. <br> You can use this endpoint to obtain information about the wallets associated with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include a JSON array containing details for each wallet including `user_token`, `balance`, `currency_code`.
          * @summary Retrieve all available wallets for a user
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -388,7 +364,7 @@ export const WalletApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Retrieves MassPay card information that is associated with the provided wallet token
+         * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
          * @summary Get MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -400,7 +376,7 @@ export const WalletApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update card pin number or/and status
+         * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
          * @summary Update MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -424,7 +400,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = WalletApiFp(configuration)
     return {
         /**
-         * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+         * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
          * @summary Add autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -436,7 +412,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createAutopayRule(userToken, walletToken, autopayRule, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deletes an autopay rule
+         * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
          * @summary Delete autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -448,7 +424,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.deleteAutopayRule(userToken, walletToken, token, options).then((request) => request(axios, basePath));
         },
         /**
-         * Obtain list of all autopay rules currently applied to this wallet
+         * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
          * @summary Get all autopay rules
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -459,7 +435,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getAutopayRules(userToken, walletToken, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves all available wallets for a provided user token.
+         * This **GET** endpoint is used to retrieve all available wallets for a provided user token. <br> You can use this endpoint to obtain information about the wallets associated with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include a JSON array containing details for each wallet including `user_token`, `balance`, `currency_code`.
          * @summary Retrieve all available wallets for a user
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -470,7 +446,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getWallet(userToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves MassPay card information that is associated with the provided wallet token
+         * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
          * @summary Get MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -481,7 +457,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getWalletCardInfo(userToken, walletToken, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update card pin number or/and status
+         * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
          * @summary Update MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -504,7 +480,7 @@ export const WalletApiFactory = function (configuration?: Configuration, basePat
  */
 export class WalletApi extends BaseAPI {
     /**
-     * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+     * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
      * @summary Add autopay rule
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -518,7 +494,7 @@ export class WalletApi extends BaseAPI {
     }
 
     /**
-     * Deletes an autopay rule
+     * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
      * @summary Delete autopay rule
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -532,7 +508,7 @@ export class WalletApi extends BaseAPI {
     }
 
     /**
-     * Obtain list of all autopay rules currently applied to this wallet
+     * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
      * @summary Get all autopay rules
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -545,7 +521,7 @@ export class WalletApi extends BaseAPI {
     }
 
     /**
-     * Retrieves all available wallets for a provided user token.
+     * This **GET** endpoint is used to retrieve all available wallets for a provided user token. <br> You can use this endpoint to obtain information about the wallets associated with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a required parameter in the URL Path. <br> The response will include a JSON array containing details for each wallet including `user_token`, `balance`, `currency_code`.
      * @summary Retrieve all available wallets for a user
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -558,7 +534,7 @@ export class WalletApi extends BaseAPI {
     }
 
     /**
-     * Retrieves MassPay card information that is associated with the provided wallet token
+     * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
      * @summary Get MassPay Card Information
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -571,7 +547,7 @@ export class WalletApi extends BaseAPI {
     }
 
     /**
-     * Update card pin number or/and status
+     * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
      * @summary Update MassPay Card Information
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet

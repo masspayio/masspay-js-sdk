@@ -113,19 +113,19 @@ export interface PayoutTxnResp {
      * @type {string}
      * @memberof PayoutTxnResp
      */
-    'payer_name'?: string;
+    'payer_name': string;
     /**
-     * 
+     * The type of delivery
      * @type {string}
      * @memberof PayoutTxnResp
      */
-    'delivery_type'?: PayoutTxnRespDeliveryTypeEnum;
+    'delivery_type': PayoutTxnRespDeliveryTypeEnum;
     /**
      * Country code [ISO_3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3)
      * @type {string}
      * @memberof PayoutTxnResp
      */
-    'country_code'?: string;
+    'country_code': string;
     /**
      * Optional JSON object with attributes that can later be searched to locate this payout. Do not include PII as this object is not encrypted.
      * @type {object}
@@ -138,6 +138,18 @@ export interface PayoutTxnResp {
      * @memberof PayoutTxnResp
      */
     'estimated_availability': string;
+    /**
+     * Optional. Contains the reason for the status change. Most commonly used for CANCELLED status with the reason for cancellation
+     * @type {string}
+     * @memberof PayoutTxnResp
+     */
+    'status_reason'?: string;
+    /**
+     * The relevant attributes that were used to fulfill this payout
+     * @type {object}
+     * @memberof PayoutTxnResp
+     */
+    'attrs'?: object;
 }
 
 export const PayoutTxnRespStatusEnum = {

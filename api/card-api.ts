@@ -30,7 +30,7 @@ import { GetWalletCardInfo200Response } from '../models';
 export const CardApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Retrieves MassPay card information that is associated with the provided wallet token
+         * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
          * @summary Get MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -56,12 +56,8 @@ export const CardApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -75,7 +71,7 @@ export const CardApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Update card pin number or/and status
+         * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
          * @summary Update MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -103,12 +99,8 @@ export const CardApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (pin !== undefined) {
                 localVarQueryParameter['pin'] = pin;
@@ -140,7 +132,7 @@ export const CardApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = CardApiAxiosParamCreator(configuration)
     return {
         /**
-         * Retrieves MassPay card information that is associated with the provided wallet token
+         * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
          * @summary Get MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -152,7 +144,7 @@ export const CardApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Update card pin number or/and status
+         * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
          * @summary Update MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -176,7 +168,7 @@ export const CardApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = CardApiFp(configuration)
     return {
         /**
-         * Retrieves MassPay card information that is associated with the provided wallet token
+         * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
          * @summary Get MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -187,7 +179,7 @@ export const CardApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.getWalletCardInfo(userToken, walletToken, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update card pin number or/and status
+         * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
          * @summary Update MassPay Card Information
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -210,7 +202,7 @@ export const CardApiFactory = function (configuration?: Configuration, basePath?
  */
 export class CardApi extends BaseAPI {
     /**
-     * Retrieves MassPay card information that is associated with the provided wallet token
+     * This **GET** endpoint is used to retrieve MassPay card information associated with the provided wallet token. <br> You can use this endpoint to obtain information about the MassPay card associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON object containing details for the MassPay card, including the card number, balance, status.
      * @summary Get MassPay Card Information
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -223,7 +215,7 @@ export class CardApi extends BaseAPI {
     }
 
     /**
-     * Update card pin number or/and status
+     * This **PUT** endpoint is used to update the MassPay card information for a provided user token and wallet token. <br> You can use this endpoint to help your users manage their MassPay card information, including updating their card PIN number or status. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as parameters in the URL Path, along with the parameters in the request Query, including the card pin number or(and) status. <br> The endpoint will then update the card information for the provided user and wallet token.
      * @summary Update MassPay Card Information
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet

@@ -32,7 +32,7 @@ import { LoadTxnResp } from '../models';
 // @ts-ignore
 import { Loads } from '../models';
 // @ts-ignore
-import { ResendLoadNotification200Response } from '../models';
+import { ResendBalanceNotification200Response } from '../models';
 /**
  * LoadApi - axios parameter creator
  * @export
@@ -40,7 +40,7 @@ import { ResendLoadNotification200Response } from '../models';
 export const LoadApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Reverse a load that was already processed. If the load is still in scheduled status, it will mark it as cancelled
+         * This **DELETE** endpoint is used to reverse a load transaction that was already processed, allowing you to remove funds from a user\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the load_token as a parameter in the Query string. <br> The endpoint will then attempt to reverse the specified load transaction. If the load is still in scheduled status, it will be marked as cancelled.
          * @summary Reverse a user load
          * @param {string} userToken Token representing the user to load/fetch loads for
          * @param {string} loadToken Load token
@@ -66,12 +66,8 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (loadToken !== undefined) {
                 localVarQueryParameter['load_token'] = loadToken;
@@ -93,7 +89,7 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+         * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
          * @summary Add autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -120,12 +116,8 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -142,7 +134,7 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Deletes an autopay rule
+         * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
          * @summary Delete autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -171,12 +163,8 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (token !== undefined) {
                 localVarQueryParameter['token'] = token;
@@ -194,7 +182,7 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Obtain list of all autopay rules currently applied to this wallet
+         * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
          * @summary Get all autopay rules
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -220,12 +208,8 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
 
     
@@ -239,7 +223,7 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Gets a transaction history of all loads that were made to the provided user token, including scheduled loads.
+         * This **GET** endpoint is used to retrieve a transaction history of all loads that were made to the provided user token, including scheduled loads. <br> You can use this endpoint to obtain a comprehensive history of loads for the user token, allowing you to track and analyze their incoming payments over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a JSON array of load transactions, each including transactions details.
          * @summary Get history of loads by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -262,12 +246,8 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -285,7 +265,7 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Initiates a load of funds into a user token\'s wallet.
+         * This **POST** endpoint is used to initiate a load transaction, allowing you to add funds to a user token\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. You also need to provide the `client_load_id`, `source_token`, and amount as JSON parameters in the Request Body. The `client_load_id` is a unique identifier for the transaction that you can use to track it, while the `source_token` is the token or account from which the funds will be loaded. The amount parameter specifies the amount of funds to be loaded into the user\'s wallet. <br> The response will contain a JSON object indicating the status of the load transaction and any relevant details.
          * @summary Initiate a load transaction
          * @param {string} userToken Token representing the user to load
          * @param {LoadTxn} loadTxn Load information
@@ -311,12 +291,8 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -337,7 +313,7 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * 
+         * This **PUT** endpoint is used to resend a load notification to the user associated with the provided `user_token` for a specific load transaction. <br> You can use this endpoint to help ensure that users are notified promptly and accurately of any incoming funds or other important payment events. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the `load_token` as a parameter in the Query string. The endpoint will then resend a notification to the user for the specified load transaction. <br> The response will contain a JSON object indicating the status of the request.
          * @summary Resend Load Notification
          * @param {string} userToken Token representing the user to load/fetch loads for
          * @param {string} loadToken Load token
@@ -345,11 +321,11 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendLoadNotification: async (userToken: string, loadToken: string, idempotencyKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        loadUserTokenPut: async (userToken: string, loadToken: string, idempotencyKey?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userToken' is not null or undefined
-            assertParamExists('resendLoadNotification', 'userToken', userToken)
+            assertParamExists('loadUserTokenPut', 'userToken', userToken)
             // verify required parameter 'loadToken' is not null or undefined
-            assertParamExists('resendLoadNotification', 'loadToken', loadToken)
+            assertParamExists('loadUserTokenPut', 'loadToken', loadToken)
             const localVarPath = `/load/{user_token}`
                 .replace(`{${"user_token"}}`, encodeURIComponent(String(userToken)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -363,15 +339,58 @@ export const LoadApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (loadToken !== undefined) {
                 localVarQueryParameter['load_token'] = loadToken;
+            }
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Resend Balance Notification
+         * @param {string} userToken Token representing the user who owns the wallet
+         * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
+         * @param {string} [walletToken] Optional wallet token. If none is provided, select the first wallet available
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendBalanceNotification: async (userToken: string, idempotencyKey?: string, walletToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userToken' is not null or undefined
+            assertParamExists('resendBalanceNotification', 'userToken', userToken)
+            const localVarPath = `/wallet/{user_token}`
+                .replace(`{${"user_token"}}`, encodeURIComponent(String(userToken)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication AUTHORIZER_NAME required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+            if (walletToken !== undefined) {
+                localVarQueryParameter['wallet_token'] = walletToken;
             }
 
             if (idempotencyKey != null) {
@@ -400,7 +419,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = LoadApiAxiosParamCreator(configuration)
     return {
         /**
-         * Reverse a load that was already processed. If the load is still in scheduled status, it will mark it as cancelled
+         * This **DELETE** endpoint is used to reverse a load transaction that was already processed, allowing you to remove funds from a user\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the load_token as a parameter in the Query string. <br> The endpoint will then attempt to reverse the specified load transaction. If the load is still in scheduled status, it will be marked as cancelled.
          * @summary Reverse a user load
          * @param {string} userToken Token representing the user to load/fetch loads for
          * @param {string} loadToken Load token
@@ -413,7 +432,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+         * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
          * @summary Add autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -426,7 +445,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Deletes an autopay rule
+         * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
          * @summary Delete autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -439,7 +458,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Obtain list of all autopay rules currently applied to this wallet
+         * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
          * @summary Get all autopay rules
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -451,7 +470,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Gets a transaction history of all loads that were made to the provided user token, including scheduled loads.
+         * This **GET** endpoint is used to retrieve a transaction history of all loads that were made to the provided user token, including scheduled loads. <br> You can use this endpoint to obtain a comprehensive history of loads for the user token, allowing you to track and analyze their incoming payments over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a JSON array of load transactions, each including transactions details.
          * @summary Get history of loads by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -463,7 +482,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Initiates a load of funds into a user token\'s wallet.
+         * This **POST** endpoint is used to initiate a load transaction, allowing you to add funds to a user token\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. You also need to provide the `client_load_id`, `source_token`, and amount as JSON parameters in the Request Body. The `client_load_id` is a unique identifier for the transaction that you can use to track it, while the `source_token` is the token or account from which the funds will be loaded. The amount parameter specifies the amount of funds to be loaded into the user\'s wallet. <br> The response will contain a JSON object indicating the status of the load transaction and any relevant details.
          * @summary Initiate a load transaction
          * @param {string} userToken Token representing the user to load
          * @param {LoadTxn} loadTxn Load information
@@ -476,7 +495,7 @@ export const LoadApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * This **PUT** endpoint is used to resend a load notification to the user associated with the provided `user_token` for a specific load transaction. <br> You can use this endpoint to help ensure that users are notified promptly and accurately of any incoming funds or other important payment events. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the `load_token` as a parameter in the Query string. The endpoint will then resend a notification to the user for the specified load transaction. <br> The response will contain a JSON object indicating the status of the request.
          * @summary Resend Load Notification
          * @param {string} userToken Token representing the user to load/fetch loads for
          * @param {string} loadToken Load token
@@ -484,8 +503,21 @@ export const LoadApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendLoadNotification(userToken: string, loadToken: string, idempotencyKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendLoadNotification200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resendLoadNotification(userToken, loadToken, idempotencyKey, options);
+        async loadUserTokenPut(userToken: string, loadToken: string, idempotencyKey?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendBalanceNotification200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.loadUserTokenPut(userToken, loadToken, idempotencyKey, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Resend Balance Notification
+         * @param {string} userToken Token representing the user who owns the wallet
+         * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
+         * @param {string} [walletToken] Optional wallet token. If none is provided, select the first wallet available
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resendBalanceNotification(userToken: string, idempotencyKey?: string, walletToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendBalanceNotification200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendBalanceNotification(userToken, idempotencyKey, walletToken, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -499,7 +531,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = LoadApiFp(configuration)
     return {
         /**
-         * Reverse a load that was already processed. If the load is still in scheduled status, it will mark it as cancelled
+         * This **DELETE** endpoint is used to reverse a load transaction that was already processed, allowing you to remove funds from a user\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the load_token as a parameter in the Query string. <br> The endpoint will then attempt to reverse the specified load transaction. If the load is still in scheduled status, it will be marked as cancelled.
          * @summary Reverse a user load
          * @param {string} userToken Token representing the user to load/fetch loads for
          * @param {string} loadToken Load token
@@ -511,7 +543,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.cancelUserLoad(userToken, loadToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+         * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
          * @summary Add autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -523,7 +555,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.createAutopayRule(userToken, walletToken, autopayRule, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deletes an autopay rule
+         * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
          * @summary Delete autopay rule
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -535,7 +567,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.deleteAutopayRule(userToken, walletToken, token, options).then((request) => request(axios, basePath));
         },
         /**
-         * Obtain list of all autopay rules currently applied to this wallet
+         * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
          * @summary Get all autopay rules
          * @param {string} userToken Token representing the user who owns the wallet
          * @param {string} walletToken Token representing the wallet
@@ -546,7 +578,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.getAutopayRules(userToken, walletToken, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets a transaction history of all loads that were made to the provided user token, including scheduled loads.
+         * This **GET** endpoint is used to retrieve a transaction history of all loads that were made to the provided user token, including scheduled loads. <br> You can use this endpoint to obtain a comprehensive history of loads for the user token, allowing you to track and analyze their incoming payments over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a JSON array of load transactions, each including transactions details.
          * @summary Get history of loads by user token
          * @param {string} userToken The user token that needs to be fetched.
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -557,7 +589,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.getUserLoadsByToken(userToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Initiates a load of funds into a user token\'s wallet.
+         * This **POST** endpoint is used to initiate a load transaction, allowing you to add funds to a user token\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. You also need to provide the `client_load_id`, `source_token`, and amount as JSON parameters in the Request Body. The `client_load_id` is a unique identifier for the transaction that you can use to track it, while the `source_token` is the token or account from which the funds will be loaded. The amount parameter specifies the amount of funds to be loaded into the user\'s wallet. <br> The response will contain a JSON object indicating the status of the load transaction and any relevant details.
          * @summary Initiate a load transaction
          * @param {string} userToken Token representing the user to load
          * @param {LoadTxn} loadTxn Load information
@@ -569,7 +601,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.loadUser(userToken, loadTxn, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * This **PUT** endpoint is used to resend a load notification to the user associated with the provided `user_token` for a specific load transaction. <br> You can use this endpoint to help ensure that users are notified promptly and accurately of any incoming funds or other important payment events. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the `load_token` as a parameter in the Query string. The endpoint will then resend a notification to the user for the specified load transaction. <br> The response will contain a JSON object indicating the status of the request.
          * @summary Resend Load Notification
          * @param {string} userToken Token representing the user to load/fetch loads for
          * @param {string} loadToken Load token
@@ -577,8 +609,20 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendLoadNotification(userToken: string, loadToken: string, idempotencyKey?: string, options?: any): AxiosPromise<ResendLoadNotification200Response> {
-            return localVarFp.resendLoadNotification(userToken, loadToken, idempotencyKey, options).then((request) => request(axios, basePath));
+        loadUserTokenPut(userToken: string, loadToken: string, idempotencyKey?: string, options?: any): AxiosPromise<ResendBalanceNotification200Response> {
+            return localVarFp.loadUserTokenPut(userToken, loadToken, idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Resend Balance Notification
+         * @param {string} userToken Token representing the user who owns the wallet
+         * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
+         * @param {string} [walletToken] Optional wallet token. If none is provided, select the first wallet available
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendBalanceNotification(userToken: string, idempotencyKey?: string, walletToken?: string, options?: any): AxiosPromise<ResendBalanceNotification200Response> {
+            return localVarFp.resendBalanceNotification(userToken, idempotencyKey, walletToken, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -591,7 +635,7 @@ export const LoadApiFactory = function (configuration?: Configuration, basePath?
  */
 export class LoadApi extends BaseAPI {
     /**
-     * Reverse a load that was already processed. If the load is still in scheduled status, it will mark it as cancelled
+     * This **DELETE** endpoint is used to reverse a load transaction that was already processed, allowing you to remove funds from a user\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the load_token as a parameter in the Query string. <br> The endpoint will then attempt to reverse the specified load transaction. If the load is still in scheduled status, it will be marked as cancelled.
      * @summary Reverse a user load
      * @param {string} userToken Token representing the user to load/fetch loads for
      * @param {string} loadToken Load token
@@ -605,7 +649,7 @@ export class LoadApi extends BaseAPI {
     }
 
     /**
-     * Create an autopay rule that will automatically initiate a payout whenever the `wallet_token` is loaded
+     * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage.
      * @summary Add autopay rule
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -619,7 +663,7 @@ export class LoadApi extends BaseAPI {
     }
 
     /**
-     * Deletes an autopay rule
+     * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
      * @summary Delete autopay rule
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -633,7 +677,7 @@ export class LoadApi extends BaseAPI {
     }
 
     /**
-     * Obtain list of all autopay rules currently applied to this wallet
+     * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
      * @summary Get all autopay rules
      * @param {string} userToken Token representing the user who owns the wallet
      * @param {string} walletToken Token representing the wallet
@@ -646,7 +690,7 @@ export class LoadApi extends BaseAPI {
     }
 
     /**
-     * Gets a transaction history of all loads that were made to the provided user token, including scheduled loads.
+     * This **GET** endpoint is used to retrieve a transaction history of all loads that were made to the provided user token, including scheduled loads. <br> You can use this endpoint to obtain a comprehensive history of loads for the user token, allowing you to track and analyze their incoming payments over time. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a JSON array of load transactions, each including transactions details.
      * @summary Get history of loads by user token
      * @param {string} userToken The user token that needs to be fetched.
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -659,7 +703,7 @@ export class LoadApi extends BaseAPI {
     }
 
     /**
-     * Initiates a load of funds into a user token\'s wallet.
+     * This **POST** endpoint is used to initiate a load transaction, allowing you to add funds to a user token\'s wallet. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. You also need to provide the `client_load_id`, `source_token`, and amount as JSON parameters in the Request Body. The `client_load_id` is a unique identifier for the transaction that you can use to track it, while the `source_token` is the token or account from which the funds will be loaded. The amount parameter specifies the amount of funds to be loaded into the user\'s wallet. <br> The response will contain a JSON object indicating the status of the load transaction and any relevant details.
      * @summary Initiate a load transaction
      * @param {string} userToken Token representing the user to load
      * @param {LoadTxn} loadTxn Load information
@@ -673,7 +717,7 @@ export class LoadApi extends BaseAPI {
     }
 
     /**
-     * 
+     * This **PUT** endpoint is used to resend a load notification to the user associated with the provided `user_token` for a specific load transaction. <br> You can use this endpoint to help ensure that users are notified promptly and accurately of any incoming funds or other important payment events. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, and the `load_token` as a parameter in the Query string. The endpoint will then resend a notification to the user for the specified load transaction. <br> The response will contain a JSON object indicating the status of the request.
      * @summary Resend Load Notification
      * @param {string} userToken Token representing the user to load/fetch loads for
      * @param {string} loadToken Load token
@@ -682,7 +726,21 @@ export class LoadApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LoadApi
      */
-    public resendLoadNotification(userToken: string, loadToken: string, idempotencyKey?: string, options?: AxiosRequestConfig) {
-        return LoadApiFp(this.configuration).resendLoadNotification(userToken, loadToken, idempotencyKey, options).then((request) => request(this.axios, this.basePath));
+    public loadUserTokenPut(userToken: string, loadToken: string, idempotencyKey?: string, options?: AxiosRequestConfig) {
+        return LoadApiFp(this.configuration).loadUserTokenPut(userToken, loadToken, idempotencyKey, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Resend Balance Notification
+     * @param {string} userToken Token representing the user who owns the wallet
+     * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
+     * @param {string} [walletToken] Optional wallet token. If none is provided, select the first wallet available
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LoadApi
+     */
+    public resendBalanceNotification(userToken: string, idempotencyKey?: string, walletToken?: string, options?: AxiosRequestConfig) {
+        return LoadApiFp(this.configuration).resendBalanceNotification(userToken, idempotencyKey, walletToken, options).then((request) => request(this.axios, this.basePath));
     }
 }

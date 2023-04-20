@@ -32,7 +32,7 @@ import { SpendBacks } from '../models';
 export const SpendBackApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Gets a list of all historical spendbacks for a provided user token.
+         * This **GET** endpoint is used to retrieve the history of spendbacks for a specific user token. <br> You can use this endpoint to help manage your payment operations and track the usage of funds by your users. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a list of all the historical spendbacks for the provided user token. The response will contain a JSON array with details for each spendback transaction.
          * @summary Get history of spend backs by user token
          * @param {string} userToken Token representing the user to fetch/initiate spend back
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -55,12 +55,8 @@ export const SpendBackApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -78,7 +74,7 @@ export const SpendBackApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Initiates a spend back transaction to a provided user token.
+         * This **POST** endpoint is used to initiate a spendback transaction to a provided user token. <br> You can use this endpoint to enable spendback transactions for your users and help them manage their funds more effectively. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, along with the required parameters in the request Body, including `client_spendback_id`, `source_token`, `source_currency_code` and `amount`. <br> The endpoint will then initiate the spendback transaction, transferring funds from the source token to the user token. The response will contain a JSON object indicating the status of the request and any relevant transaction details.
          * @summary Initiate a spend back transaction
          * @param {string} userToken Token representing the user to fetch/initiate spend back
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -102,12 +98,8 @@ export const SpendBackApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            // authentication api_key required
-            await setApiKeyToObject(localVarHeaderParameter, "x-api-key", configuration)
-
             // authentication AUTHORIZER_NAME required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -138,7 +130,7 @@ export const SpendBackApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = SpendBackApiAxiosParamCreator(configuration)
     return {
         /**
-         * Gets a list of all historical spendbacks for a provided user token.
+         * This **GET** endpoint is used to retrieve the history of spendbacks for a specific user token. <br> You can use this endpoint to help manage your payment operations and track the usage of funds by your users. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a list of all the historical spendbacks for the provided user token. The response will contain a JSON array with details for each spendback transaction.
          * @summary Get history of spend backs by user token
          * @param {string} userToken Token representing the user to fetch/initiate spend back
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -150,7 +142,7 @@ export const SpendBackApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Initiates a spend back transaction to a provided user token.
+         * This **POST** endpoint is used to initiate a spendback transaction to a provided user token. <br> You can use this endpoint to enable spendback transactions for your users and help them manage their funds more effectively. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, along with the required parameters in the request Body, including `client_spendback_id`, `source_token`, `source_currency_code` and `amount`. <br> The endpoint will then initiate the spendback transaction, transferring funds from the source token to the user token. The response will contain a JSON object indicating the status of the request and any relevant transaction details.
          * @summary Initiate a spend back transaction
          * @param {string} userToken Token representing the user to fetch/initiate spend back
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -173,7 +165,7 @@ export const SpendBackApiFactory = function (configuration?: Configuration, base
     const localVarFp = SpendBackApiFp(configuration)
     return {
         /**
-         * Gets a list of all historical spendbacks for a provided user token.
+         * This **GET** endpoint is used to retrieve the history of spendbacks for a specific user token. <br> You can use this endpoint to help manage your payment operations and track the usage of funds by your users. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a list of all the historical spendbacks for the provided user token. The response will contain a JSON array with details for each spendback transaction.
          * @summary Get history of spend backs by user token
          * @param {string} userToken Token representing the user to fetch/initiate spend back
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -184,7 +176,7 @@ export const SpendBackApiFactory = function (configuration?: Configuration, base
             return localVarFp.getUserSpendbacksByToken(userToken, idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Initiates a spend back transaction to a provided user token.
+         * This **POST** endpoint is used to initiate a spendback transaction to a provided user token. <br> You can use this endpoint to enable spendback transactions for your users and help them manage their funds more effectively. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, along with the required parameters in the request Body, including `client_spendback_id`, `source_token`, `source_currency_code` and `amount`. <br> The endpoint will then initiate the spendback transaction, transferring funds from the source token to the user token. The response will contain a JSON object indicating the status of the request and any relevant transaction details.
          * @summary Initiate a spend back transaction
          * @param {string} userToken Token representing the user to fetch/initiate spend back
          * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -206,7 +198,7 @@ export const SpendBackApiFactory = function (configuration?: Configuration, base
  */
 export class SpendBackApi extends BaseAPI {
     /**
-     * Gets a list of all historical spendbacks for a provided user token.
+     * This **GET** endpoint is used to retrieve the history of spendbacks for a specific user token. <br> You can use this endpoint to help manage your payment operations and track the usage of funds by your users. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then return a list of all the historical spendbacks for the provided user token. The response will contain a JSON array with details for each spendback transaction.
      * @summary Get history of spend backs by user token
      * @param {string} userToken Token representing the user to fetch/initiate spend back
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
@@ -219,7 +211,7 @@ export class SpendBackApi extends BaseAPI {
     }
 
     /**
-     * Initiates a spend back transaction to a provided user token.
+     * This **POST** endpoint is used to initiate a spendback transaction to a provided user token. <br> You can use this endpoint to enable spendback transactions for your users and help them manage their funds more effectively. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path, along with the required parameters in the request Body, including `client_spendback_id`, `source_token`, `source_currency_code` and `amount`. <br> The endpoint will then initiate the spendback transaction, transferring funds from the source token to the user token. The response will contain a JSON object indicating the status of the request and any relevant transaction details.
      * @summary Initiate a spend back transaction
      * @param {string} userToken Token representing the user to fetch/initiate spend back
      * @param {string} [idempotencyKey] Unique key to prevent duplicate processing
