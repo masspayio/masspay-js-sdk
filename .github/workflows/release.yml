@@ -9,8 +9,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
-    name: Build package
+  release:
+    name: Release by DX Heroes
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,12 +19,6 @@ jobs:
           node-version: 18
       - run: npm install
       - run: npm run build
-  release:
-    name: Release by DX Heroes
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
       - uses: dxheroes/gh-action-auto-release@v1
         with:
           release-type: node
