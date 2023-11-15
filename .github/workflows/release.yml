@@ -21,6 +21,7 @@ jobs:
       - run: npm run build
   release:
     name: Release by DX Heroes
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
