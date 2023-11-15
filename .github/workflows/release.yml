@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dxheroes/gh-action-auto-release@v1.0.0
+      - uses: dxheroes/gh-action-auto-release@v1.0.1
         with:
           release-type: node
           package-name: masspay-js-sdk
