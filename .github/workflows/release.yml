@@ -9,14 +9,26 @@ permissions:
   pull-requests: write
 
 jobs:
+  build:
+    name: Build package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm run build
   release:
     name: Release by DX Heroes
     runs-on: ubuntu-latest
     steps:
+      - run: npm run build
       - uses: actions/checkout@v3
       - uses: dxheroes/gh-action-auto-release@v1.0.0
         with:
           release-type: node
           package-name: masspay-js-sdk
+          extra-files: |
+            README.md
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
