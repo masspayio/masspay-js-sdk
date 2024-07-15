@@ -13,7 +13,7 @@ jobs:
     name: Release by DX Heroes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: dxheroes/gh-action-auto-release@v1
         with:
           release-type: node

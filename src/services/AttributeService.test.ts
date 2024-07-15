@@ -1,7 +1,9 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
-import { AttrTxn } from '../models/AttrTxn';
 import { AttributeService } from './AttributeService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { AllAttributesResp } from '../models/AllAttributesResp';
+import { AttrsRequirement } from '../models/AttrsRequirement';
+import { AttrTxn } from '../models/AttrTxn';
 
 jest.mock('../core/request');
 
@@ -10,8 +12,8 @@ describe('AttributeService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -37,7 +39,7 @@ describe('AttributeService', () => {
           max_limit: 10000,
           min_limit: 0,
           number_of_locations: 13007,
-          estimated_availability: '2020-07-21T17:32:28Z',
+          estimated_availability: '',
           additional_description: 'Requires drivers license to pickup funds',
           is_dynamic_token: true,
           attributes: [

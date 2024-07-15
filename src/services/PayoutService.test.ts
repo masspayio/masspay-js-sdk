@@ -1,7 +1,9 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
-import { PayoutTxn } from '../models/PayoutTxn';
 import { PayoutService } from './PayoutService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { PayoutTxn } from '../models/PayoutTxn';
+import { PayoutTxnCommitResp } from '../models/PayoutTxnCommitResp';
+import { PayoutTxnResp } from '../models/PayoutTxnResp';
 
 jest.mock('../core/request');
 
@@ -10,8 +12,8 @@ describe('PayoutService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -35,7 +37,7 @@ describe('PayoutService', () => {
         attr_set_token: 'b1a867c1-6e36-4525-b6d5-a20bac80e3b0',
         exchange_rate: 18.55,
         fee: 2.99,
-        expiration: '2019-06-26T22:32:05',
+        expiration: '',
         pickup_code: '54238173',
         status: 'PENDING',
         payer_logo: 'U3dhZ2dlciByb2Nrcw==',
@@ -43,7 +45,7 @@ describe('PayoutService', () => {
         delivery_type: 'CASH_PICKUP',
         country_code: 'MEX',
         metadata: {},
-        estimated_availability: '2020-07-21T17:32:28Z',
+        estimated_availability: '',
         status_reason: '',
         attrs: {},
       };
@@ -90,7 +92,7 @@ describe('PayoutService', () => {
           attr_set_token: 'b1a867c1-6e36-4525-b6d5-a20bac80e3b0',
           exchange_rate: 18.55,
           fee: 2.99,
-          expiration: '2019-06-26T22:32:05',
+          expiration: '',
           pickup_code: '54238173',
           status: 'PENDING',
           payer_logo: 'U3dhZ2dlciByb2Nrcw==',
@@ -98,7 +100,7 @@ describe('PayoutService', () => {
           delivery_type: 'CASH_PICKUP',
           country_code: 'MEX',
           metadata: {},
-          estimated_availability: '2020-07-21T17:32:28Z',
+          estimated_availability: '',
           status_reason: '',
           attrs: {},
         },
@@ -147,7 +149,7 @@ describe('PayoutService', () => {
         attr_set_token: 'b1a867c1-6e36-4525-b6d5-a20bac80e3b0',
         exchange_rate: 18.55,
         fee: 2.99,
-        expiration: '2019-06-26T22:32:05',
+        expiration: '',
         pickup_code: '54238173',
         status: 'PENDING',
         payer_logo: 'U3dhZ2dlciByb2Nrcw==',
@@ -155,7 +157,7 @@ describe('PayoutService', () => {
         delivery_type: 'CASH_PICKUP',
         country_code: 'MEX',
         metadata: {},
-        estimated_availability: '2020-07-21T17:32:28Z',
+        estimated_availability: '',
         status_reason: '',
         attrs: {},
       };

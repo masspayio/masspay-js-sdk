@@ -1,17 +1,18 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
-import type { AutopayResp } from '../models/AutopayResp';
+import type { AutopayoutResp } from '../models/AutopayoutResp';
 import type { AutopayRule } from '../models/AutopayRule';
 import type { WalletTxnResp } from '../models/WalletTxnResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class WalletService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -27,7 +28,7 @@ export class WalletService {
   public getWallet(userToken: string, idempotencyKey?: string): CancelablePromise<Array<WalletTxnResp>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/wallet/{user_token}',
+      url: '/payout/wallet/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -47,17 +48,17 @@ export class WalletService {
   }
 
   /**
-   * Get all AutoPay rules
-   * This **GET** endpoint is used to retrieve all autopay rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopay rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopay rule, including the token, `destination_token` and percentage.
+   * Get all AutoPayout rules
+   * This **GET** endpoint is used to retrieve all autopayout rules currently applied to the provided wallet token. <br> You can use this endpoint to obtain information about the autopayout rules associated with the wallet. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path. <br> The response will include a JSON array containing details for each autopayout rule, including the token, `destination_token` and percentage.
    * @param userToken Token representing the user who owns the wallet
    * @param walletToken Token representing the wallet
-   * @returns AutopayResp Succesful operation.
+   * @returns AutopayoutResp Succesful operation.
    * @throws ApiError
    */
-  public getAutopayRules(userToken: string, walletToken: string): CancelablePromise<Array<AutopayResp>> {
+  public getAutopayoutRules(userToken: string, walletToken: string): CancelablePromise<Array<AutopayoutResp>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/wallet/{user_token}/{wallet_token}/autopay',
+      url: '/payout/wallet/{user_token}/{wallet_token}/autopayout',
       path: {
         user_token: userToken,
         wallet_token: walletToken,
@@ -75,18 +76,18 @@ export class WalletService {
   }
 
   /**
-   * Add AutoPay rule
-   * This **POST** endpoint is used to add an autopay rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopay rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopay rule, including the token, `destination_token` and percentage. <br> Note: AutoPay can only be created on wallets that have the same currency as the `destination_token`. It cannot initiate transactions with  an exchange rate.
+   * Add AutoPayout rule
+   * This **POST** endpoint is used to add an autopayout rule that will initiate a payout whenever the provided wallet token is loaded. <br> You can use this endpoint to create an autopayout rule that automatically sends a percentage of incoming load to a specific destination. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the `destination_token` and percentage of incoming load that should be autopaid to the `destination_token` in the request Body. <br> The response will include a JSON object containing the details of the created autopayout rule, including the token, `destination_token` and percentage.
    * @param userToken Token representing the user who owns the wallet
    * @param walletToken Token representing the wallet
-   * @param requestBody Autopay rule configuration.
-   * @returns AutopayResp Succesfully created.
+   * @param requestBody Autopayout rule configuration.
+   * @returns AutopayoutResp Succesfully created.
    * @throws ApiError
    */
-  public createAutopayRule(userToken: string, walletToken: string, requestBody?: AutopayRule): CancelablePromise<AutopayResp> {
+  public createAutopayoutRule(userToken: string, walletToken: string, requestBody?: AutopayRule): CancelablePromise<AutopayoutResp> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/wallet/{user_token}/{wallet_token}/autopay',
+      url: '/payout/wallet/{user_token}/{wallet_token}/autopayout',
       path: {
         user_token: userToken,
         wallet_token: walletToken,
@@ -106,18 +107,18 @@ export class WalletService {
   }
 
   /**
-   * Delete AutoPay rule
-   * This **DELETE** endpoint is used to delete an existing autopay rule. <br> You can use this endpoint to remove an autopay rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopay rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
+   * Delete AutoPayout rule
+   * This **DELETE** endpoint is used to delete an existing autopayout rule. <br> You can use this endpoint to remove an autopayout rule that is no longer needed. <br> To use this endpoint, you need to provide the `user_token` and `wallet_token` as required parameters in the URL Path, and the token of the autopayout rule you wish to delete in the request Body. <br> The response will include a message indicating the success of the deletion.
    * @param userToken Token representing the user who owns the wallet
    * @param walletToken Token representing the wallet
-   * @param token Autopay token to delete
+   * @param token Autopayout token to delete
    * @returns void
    * @throws ApiError
    */
-  public deleteAutopayRule(userToken: string, walletToken: string, token: string): CancelablePromise<void> {
+  public deleteAutopayoutRule(userToken: string, walletToken: string, token: string): CancelablePromise<void> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/wallet/{user_token}/{wallet_token}/autopay',
+      url: '/payout/wallet/{user_token}/{wallet_token}/autopayout',
       path: {
         user_token: userToken,
         wallet_token: walletToken,

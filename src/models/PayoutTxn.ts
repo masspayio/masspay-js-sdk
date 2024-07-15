@@ -1,7 +1,7 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
@@ -25,7 +25,7 @@ export type PayoutTxn = {
    */
   source_token: string;
   /**
-   * Token that represents the payout destination i.e. Omnex->Brazil->Bank Deposit->Itau. To be retrieved from the #pricing callback. If not provided, the last destination that was used for this user will be used. 36 characters long
+   * Token that represents the payout destination i.e. MassPay->Brazil->Bank Deposit->Itau. To be retrieved from the #pricing callback. If not provided, the last destination that was used for this user will be used. 36 characters long
    */
   destination_token: string;
   /**

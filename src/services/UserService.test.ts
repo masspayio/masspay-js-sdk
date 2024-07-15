@@ -1,8 +1,11 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { UserService } from './UserService';
 import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { FoundUser } from '../models/FoundUser';
+import { StoredUser } from '../models/StoredUser';
+import { TxnHistoryResp } from '../models/TxnHistoryResp';
 import { UpdateUser } from '../models/UpdateUser';
 import { User } from '../models/User';
-import { UserService } from './UserService';
 
 jest.mock('../core/request');
 
@@ -11,8 +14,8 @@ describe('UserService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -27,7 +30,7 @@ describe('UserService', () => {
       const expectedResponse = {
         user_token: '123e4567-e89b-12d3-a456-426614174000',
         status: 'ACTIVE',
-        created_on: '2019-07-07T23:03:05',
+        created_on: '',
         internal_user_id: '4324-rOzk',
         address1: '2000 main st',
         address2: 'apt D',
@@ -43,7 +46,7 @@ describe('UserService', () => {
         mobile_number: '16502000226',
         business_name: 'ABC Company',
         timezone: 'America/Los_Angeles',
-        date_of_birth: '1975-03-24',
+        date_of_birth: '',
         metadata: {},
         activation_url: 'https://members.masspay.io/activation?activation=AO==',
       };
@@ -66,7 +69,7 @@ describe('UserService', () => {
         language: 'en',
         mobile_number: '16502000226',
         business_name: 'ABC Company',
-        date_of_birth: '1975-03-24',
+        date_of_birth: '',
         metadata: {
           group_id: 541,
         },
@@ -83,7 +86,7 @@ describe('UserService', () => {
       const expectedResponse = {
         user_token: '123e4567-e89b-12d3-a456-426614174000',
         status: 'ACTIVE',
-        created_on: '2019-07-07T23:03:05',
+        created_on: '',
         internal_user_id: '4324-rOzk',
         address1: '2000 main st',
         address2: 'apt D',
@@ -99,7 +102,7 @@ describe('UserService', () => {
         mobile_number: '16502000226',
         business_name: 'ABC Company',
         timezone: 'America/Los_Angeles',
-        date_of_birth: '1975-03-24',
+        date_of_birth: '',
         metadata: {},
         activation_url: 'https://members.masspay.io/activation?activation=AO==',
       };
@@ -119,7 +122,7 @@ describe('UserService', () => {
       const expectedResponse = {
         user_token: '123e4567-e89b-12d3-a456-426614174000',
         status: 'ACTIVE',
-        created_on: '2019-07-07T23:03:05',
+        created_on: '',
         internal_user_id: '4324-rOzk',
         address1: '2000 main st',
         address2: 'apt D',
@@ -135,7 +138,7 @@ describe('UserService', () => {
         mobile_number: '16502000226',
         business_name: 'ABC Company',
         timezone: 'America/Los_Angeles',
-        date_of_birth: '1975-03-24',
+        date_of_birth: '',
         metadata: {},
         activation_url: 'https://members.masspay.io/activation?activation=AO==',
       };
@@ -147,7 +150,7 @@ describe('UserService', () => {
         '',
         {
           status: 'ACTIVE',
-          created_on: '2019-07-07T23:03:05',
+          created_on: '',
           internal_user_id: '4324-rOzk',
           address1: '2000 main st',
           address2: 'apt D',
@@ -162,7 +165,7 @@ describe('UserService', () => {
           language: 'en',
           mobile_number: '16502000226',
           business_name: 'ABC Company',
-          date_of_birth: '1975-03-24',
+          date_of_birth: '',
           metadata: {},
         } as UpdateUser,
         ''
@@ -221,17 +224,7 @@ describe('UserService', () => {
 
       const service = new UserService(httpRequest);
 
-      const result = await service.getUserHistory(
-        'usr_f4741aa2-9f39-4358-8247-2409e3fc2715',
-        '2020-03-31',
-        '2020-03-31',
-        'payout',
-        '',
-        '',
-        10,
-        1,
-        true
-      );
+      const result = await service.getUserHistory('usr_f4741aa2-9f39-4358-8247-2409e3fc2715', '', '', 'payout', '', '', 10, 1, true);
 
       expect(result).toEqual(expectedResponse);
       expect(__request).toHaveBeenCalledTimes(1);
@@ -267,7 +260,7 @@ describe('UserService', () => {
 
       const service = new UserService(httpRequest);
 
-      const result = await service.getAllUsersHistory('2020-03-31', '2020-03-31', 'payout', '', '', 10, 1, true);
+      const result = await service.getAllUsersHistory('', '', 'payout', '', '', 10, 1, true);
 
       expect(result).toEqual(expectedResponse);
       expect(__request).toHaveBeenCalledTimes(1);

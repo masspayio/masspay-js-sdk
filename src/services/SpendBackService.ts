@@ -1,17 +1,18 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { SpendBacks } from '../models/SpendBacks';
 import type { SpendBackTxn } from '../models/SpendBackTxn';
 import type { SpendBackTxnResp } from '../models/SpendBackTxnResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class SpendBackService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -27,7 +28,7 @@ export class SpendBackService {
   public getUserSpendbacksByToken(userToken: string, idempotencyKey?: string): CancelablePromise<Array<SpendBacks>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/spendback/{user_token}',
+      url: '/payout/spendback/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -58,7 +59,7 @@ export class SpendBackService {
   public initiateSpendback(userToken: string, idempotencyKey?: string, requestBody?: SpendBackTxn): CancelablePromise<SpendBackTxnResp> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/spendback/{user_token}',
+      url: '/payout/spendback/{user_token}',
       path: {
         user_token: userToken,
       },

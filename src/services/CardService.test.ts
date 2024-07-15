@@ -1,6 +1,7 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
 import { CardService } from './CardService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { CardResp } from '../models/CardResp';
 
 jest.mock('../core/request');
 
@@ -9,8 +10,8 @@ describe('CardService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });

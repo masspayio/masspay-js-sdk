@@ -1,6 +1,9 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
 import { CatalogService } from './CatalogService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { CompaniesResp } from '../models/CompaniesResp';
+import { Country } from '../models/Country';
+import { Service } from '../models/Service';
 
 jest.mock('../core/request');
 
@@ -9,8 +12,8 @@ describe('CatalogService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -66,7 +69,7 @@ describe('CatalogService', () => {
                     min_limit: 0,
                     source_amount: 104.3,
                     number_of_locations: 13007,
-                    estimated_availability: '2020-07-21T17:32:28Z',
+                    estimated_availability: '',
                     additional_description: 'Requires drivers license to pickup funds',
                     is_dynamic_token: true,
                   },
@@ -74,8 +77,8 @@ describe('CatalogService', () => {
               },
             ],
             rating: 4.5,
-            description: 'Pontual is a top leading provider with over 10 years of industry experience',
-            company_name: 'Pontual',
+            description: 'MassPay is a top leading provider with over 10 years of industry experience',
+            company_name: 'MassPay',
           },
         ],
       };
@@ -116,7 +119,7 @@ describe('CatalogService', () => {
                     min_limit: 0,
                     source_amount: 104.3,
                     number_of_locations: 13007,
-                    estimated_availability: '2020-07-21T17:32:28Z',
+                    estimated_availability: '',
                     additional_description: 'Requires drivers license to pickup funds',
                     is_dynamic_token: true,
                   },
@@ -124,8 +127,8 @@ describe('CatalogService', () => {
               },
             ],
             rating: 4.5,
-            description: 'Pontual is a top leading provider with over 10 years of industry experience',
-            company_name: 'Pontual',
+            description: 'MassPay is a top leading provider with over 10 years of industry experience',
+            company_name: 'MassPay',
           },
         ],
       };
@@ -161,7 +164,7 @@ describe('CatalogService', () => {
             min_limit: 0,
             source_amount: 104.3,
             number_of_locations: 13007,
-            estimated_availability: '2020-07-21T17:32:28Z',
+            estimated_availability: '',
             additional_description: 'Requires drivers license to pickup funds',
             is_dynamic_token: true,
           },
@@ -199,7 +202,7 @@ describe('CatalogService', () => {
             min_limit: 0,
             source_amount: 104.3,
             number_of_locations: 13007,
-            estimated_availability: '2020-07-21T17:32:28Z',
+            estimated_availability: '',
             additional_description: 'Requires drivers license to pickup funds',
             is_dynamic_token: true,
           },
@@ -221,7 +224,7 @@ describe('CatalogService', () => {
       const expectedResponse = {
         name: 'MassPay Card Program - USD',
         content: '',
-        last_modified: '2020-07-21T17:32:28Z',
+        last_modified: '',
         id: 2,
         mime_type: 'application/pdf',
       };
@@ -240,7 +243,7 @@ describe('CatalogService', () => {
     it('should call API with correct parameters', async () => {
       const expectedResponse = {
         name: 'MassPay Card Program - USD',
-        last_modified: '2020-07-21T17:32:28Z',
+        last_modified: '',
         id: 2,
         mime_type: 'application/pdf',
       };

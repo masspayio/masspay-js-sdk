@@ -1,7 +1,9 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
-import { AutopayRule } from '../models/AutopayRule';
 import { WalletService } from './WalletService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { AutopayoutResp } from '../models/AutopayoutResp';
+import { AutopayRule } from '../models/AutopayRule';
+import { WalletTxnResp } from '../models/WalletTxnResp';
 
 jest.mock('../core/request');
 
@@ -10,8 +12,8 @@ describe('WalletService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -47,11 +49,11 @@ describe('WalletService', () => {
     });
   });
 
-  describe('GetAutopayRules', () => {
+  describe('GetAutopayoutRules', () => {
     it('should call API with correct parameters', async () => {
       const expectedResponse = [
         {
-          token: 'autopay_3684cc43-fe3b-4994-8ca1-7dc0db94430f',
+          token: 'autopayout_3684cc43-fe3b-4994-8ca1-7dc0db94430f',
           destination_token: 'dest_d2138fd0-00be-45a8-985f-4f5bde500962',
           percentage: 50,
           attr_set_token: '',
@@ -61,17 +63,17 @@ describe('WalletService', () => {
 
       const service = new WalletService(httpRequest);
 
-      const result = await service.getAutopayRules('', '');
+      const result = await service.getAutopayoutRules('', '');
 
       expect(result).toEqual(expectedResponse);
       expect(__request).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe('CreateAutopayRule', () => {
+  describe('CreateAutopayoutRule', () => {
     it('should call API with correct parameters', async () => {
       const expectedResponse = {
-        token: 'autopay_3684cc43-fe3b-4994-8ca1-7dc0db94430f',
+        token: 'autopayout_3684cc43-fe3b-4994-8ca1-7dc0db94430f',
         destination_token: 'dest_d2138fd0-00be-45a8-985f-4f5bde500962',
         percentage: 50,
         attr_set_token: '',
@@ -80,7 +82,7 @@ describe('WalletService', () => {
 
       const service = new WalletService(httpRequest);
 
-      const result = await service.createAutopayRule('', '', {
+      const result = await service.createAutopayoutRule('', '', {
         destination_token: 'dest_d2138fd0-00be-45a8-985f-4f5bde500962',
         percentage: 50,
         attr_set_token: '',
@@ -91,11 +93,11 @@ describe('WalletService', () => {
     });
   });
 
-  describe('DeleteAutopayRule', () => {
+  describe('DeleteAutopayoutRule', () => {
     it('should call API with correct parameters', async () => {
       const service = new WalletService(httpRequest);
 
-      await service.deleteAutopayRule('', '', 'autopay_3684cc43-fe3b-4994-8ca1-7dc0db94430f');
+      await service.deleteAutopayoutRule('', '', 'autopayout_3684cc43-fe3b-4994-8ca1-7dc0db94430f');
     });
   });
 });

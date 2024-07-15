@@ -1,7 +1,7 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
@@ -10,8 +10,8 @@
 import { ApiError } from './ApiError';
 import type { ApiRequestOptions } from './ApiRequestOptions';
 import type { ApiResult } from './ApiResult';
-import type { OnCancel } from './CancelablePromise';
 import { CancelablePromise } from './CancelablePromise';
+import type { OnCancel } from './CancelablePromise';
 import type { OpenAPIConfig } from './OpenAPI';
 
 export const isDefined = <T>(value: T | null | undefined): value is Exclude<T, null | undefined> => {
@@ -139,7 +139,7 @@ export const getHeaders = async (config: OpenAPIConfig, options: ApiRequestOptio
 
   const headers = Object.entries({
     Accept: 'application/json',
-    'user-agent': 'MasspayJsSdk/1.0.0',
+    'user-agent': 'MasspayJsSdk (JS/2.0.0; MassPayApi/1.0.0)',
     ...additionalHeaders,
     ...options.headers,
   })

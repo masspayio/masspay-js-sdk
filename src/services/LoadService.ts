@@ -1,24 +1,25 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { Loads } from '../models/Loads';
 import type { LoadTxn } from '../models/LoadTxn';
 import type { LoadTxnResp } from '../models/LoadTxnResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class LoadService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
 
   /**
    * Resend balance notification
-   * This **POST** endpoint is used to resend a balance notification to a user with the specified `user_token`. The balance notification informs the user about the current balance in their account. <br> To use this endpoint, you need to provide the required parameter `user_token` in the URL Path. Additionally, you have the option to include an optional parameter `wallet_token` in the query parameters. The `wallet_token` can be used to specify a particular wallet associated with the user, if applicable. <br> Upon a successful request, the API will return a boolean response indicating the success of the balance notification resend operation.
+   * This **PUT** endpoint is used to resend a balance notification to a user with the specified `user_token`. The balance notification informs the user about the current balance in their account. <br> To use this endpoint, you need to provide the required parameter `user_token` in the URL Path. Additionally, you have the option to include an optional parameter `wallet_token` in the query parameters. The `wallet_token` can be used to specify a particular wallet associated with the user, if applicable. <br> Upon a successful request, the API will return a boolean response indicating the success of the balance notification resend operation.
    * @param userToken Token representing the user who owns the wallet
    * @param walletToken Optional wallet token. If none is provided, select the first wallet available
    * @param idempotencyKey Unique key to prevent duplicate processing
@@ -37,7 +38,7 @@ export class LoadService {
   }> {
     return this.httpRequest.request({
       method: 'PUT',
-      url: '/wallet/{user_token}',
+      url: '/payout/wallet/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -71,7 +72,7 @@ export class LoadService {
   public loadUser(userToken: string, requestBody: LoadTxn, idempotencyKey?: string): CancelablePromise<LoadTxnResp> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/load/{user_token}',
+      url: '/payout/load/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -103,7 +104,7 @@ export class LoadService {
   public getUserLoadsByToken(userToken: string, idempotencyKey?: string): CancelablePromise<Array<Loads>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/load/{user_token}',
+      url: '/payout/load/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -143,7 +144,7 @@ export class LoadService {
   }> {
     return this.httpRequest.request({
       method: 'PUT',
-      url: '/load/{user_token}',
+      url: '/payout/load/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -177,7 +178,7 @@ export class LoadService {
   public cancelUserLoad(userToken: string, loadToken: string, idempotencyKey?: string): CancelablePromise<any> {
     return this.httpRequest.request({
       method: 'DELETE',
-      url: '/load/{user_token}',
+      url: '/payout/load/{user_token}',
       path: {
         user_token: userToken,
       },

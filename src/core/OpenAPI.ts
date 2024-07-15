@@ -1,7 +1,7 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
@@ -22,8 +22,8 @@ export type OpenAPIConfig = {
 };
 
 export const OpenAPI: OpenAPIConfig = {
-  BASE: 'https://api.masspay.io/v0.1.4',
-  VERSION: '0.1.4',
+  BASE: 'https://api.masspay.io/v1.0.0',
+  VERSION: '1.0.0',
   WITH_CREDENTIALS: false,
   CREDENTIALS: 'include',
   AUTHORIZER_NAME_API_KEY: undefined,

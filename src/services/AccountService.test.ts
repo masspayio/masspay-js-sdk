@@ -1,6 +1,7 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
 import { AccountService } from './AccountService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { AvailableBalanceTxnResp } from '../models/AvailableBalanceTxnResp';
 
 jest.mock('../core/request');
 
@@ -9,8 +10,8 @@ describe('AccountService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -49,7 +50,7 @@ describe('AccountService', () => {
 
       const service = new AccountService(httpRequest);
 
-      const result = await service.getAccountStatement('2021-01-01', '2021-02-01');
+      const result = await service.getAccountStatement('', '');
 
       expect(result).toEqual(expectedResponse);
       expect(__request).toHaveBeenCalledTimes(1);

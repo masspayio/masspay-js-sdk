@@ -1,7 +1,7 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
@@ -24,7 +24,7 @@ export type Service = {
     /**
      * base64 representation of the payer logo
      */
-    payer_logo: string;
+    payer_logo?: string;
     /**
      * Name of payer
      */

@@ -1,17 +1,18 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { PayoutTxn } from '../models/PayoutTxn';
 import type { PayoutTxnCommitResp } from '../models/PayoutTxnCommitResp';
 import type { PayoutTxnResp } from '../models/PayoutTxnResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class PayoutService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}

@@ -1,19 +1,19 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-export type AutopayResp = {
+export type AutopayoutResp = {
   /**
-   * Autopay token
+   * Autopayout token
    */
   token: string;
   /**
-   * The destination_token to autopay (send payout to)
+   * The destination_token to autopayout (send payout to)
    */
   destination_token: string;
   /**

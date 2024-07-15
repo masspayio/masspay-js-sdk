@@ -1,7 +1,7 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
@@ -50,8 +50,7 @@ export type AttrVelocityRequest = Array<{
     | 'Country'
     | 'IdentificationExpiration'
     | 'Address1'
-    | 'IFramePaymentCollection'
-    | 'PostalCode';
+    | 'IFramePaymentCollection';
   /**
    * The value to search for
    */

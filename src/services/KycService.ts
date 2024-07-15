@@ -1,17 +1,18 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { AttrVelocityRequest } from '../models/AttrVelocityRequest';
 import type { IDUpload } from '../models/IDUpload';
 import type { KYCSession } from '../models/KYCSession';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class KycService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -22,17 +23,17 @@ export class KycService {
    * @param userToken Token representing the user to retrieve attributes for
    * @param idempotencyKey Unique key to prevent duplicate processing
    * @param requestBody
-   * @returns any Succesfully created.
+   * @returns string Succesfully created.
    * @throws ApiError
    */
   public findAttributesVelocity(
     userToken: string,
     idempotencyKey?: string,
     requestBody?: AttrVelocityRequest
-  ): CancelablePromise<Array<Record<string, any>>> {
+  ): CancelablePromise<Array<string>> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/attribute/{user_token}/velocity',
+      url: '/payout/attribute/{user_token}/velocity',
       path: {
         user_token: userToken,
       },
@@ -56,7 +57,7 @@ export class KycService {
   /**
    * Get an Au10tix session link
    * This **GET** endpoint is used to obtain a link to an Au10tix session for the user with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Au10tix platform. <br> The response will contain the session link as a URL in a JSON format.
-   * @param userToken
+   * @param userToken Token representing the user to retrieve attributes for
    * @returns any Succesful operation.
    * @throws ApiError
    */
@@ -68,7 +69,7 @@ export class KycService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/{user_token}/kyc/au10tix',
+      url: '/payout/user/{user_token}/kyc/au10tix',
       path: {
         user_token: userToken,
       },
@@ -87,7 +88,7 @@ export class KycService {
   /**
    * Upload ID photos
    * Upload IDs for the provided user. This is an optional endpoint if the images are captured through means other than the link that is generated in the attributes.
-   * @param userToken
+   * @param userToken Token representing the user to retrieve attributes for
    * @param requestBody
    * @returns any OK
    * @throws ApiError
@@ -95,7 +96,7 @@ export class KycService {
   public uploadIdPhotos(userToken: string, requestBody?: Array<IDUpload>): CancelablePromise<Record<string, any> | null> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/user/{user_token}/kyc/id',
+      url: '/payout/user/{user_token}/kyc/id',
       path: {
         user_token: userToken,
       },
@@ -110,14 +111,14 @@ export class KycService {
   /**
    * Get all KYC sessions
    * This **GET** endpoint is used to obtain all previous KYC sessions for the user with the provided user token. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path.
-   * @param userToken
+   * @param userToken Token representing the user to retrieve attributes for
    * @returns KYCSession Succesful operation.
    * @throws ApiError
    */
   public getUserUserTokenKycAttempts(userToken: string): CancelablePromise<Array<KYCSession>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/{user_token}/kyc/id',
+      url: '/payout/user/{user_token}/kyc/id',
       path: {
         user_token: userToken,
       },
@@ -136,7 +137,7 @@ export class KycService {
   /**
    * Get a Veriff session link
    * This **GET** endpoint is used to obtain a link to a Veriff session for the user with the provided user token. <br> The endpoint will then generate a session link that you can use to initiate an identity verification process for the user through the Veriff platform. <br> To use this endpoint, you need to provide the `user_token` as a parameter in the URL Path. <br> The response will contain the session link as a URL in a JSON format.
-   * @param userToken
+   * @param userToken Token representing the user to retrieve attributes for
    * @returns any Succesful operation.
    * @throws ApiError
    */
@@ -148,7 +149,7 @@ export class KycService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/{user_token}/kyc/veriff',
+      url: '/payout/user/{user_token}/kyc/veriff',
       path: {
         user_token: userToken,
       },

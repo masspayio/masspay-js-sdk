@@ -1,17 +1,18 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { CompaniesResp } from '../models/CompaniesResp';
 import type { Country } from '../models/Country';
 import type { Service } from '../models/Service';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CatalogService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -25,7 +26,7 @@ export class CatalogService {
   public getCountryList(): CancelablePromise<Array<Country>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/country/list',
+      url: '/payout/country/list',
       errors: {
         400: `Bad request.`,
         401: `Unauthorized.`,
@@ -68,7 +69,7 @@ export class CatalogService {
   ): CancelablePromise<CompaniesResp> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/country/{country_code}',
+      url: '/payout/country/{country_code}',
       path: {
         country_code: countryCode,
       },
@@ -127,7 +128,7 @@ export class CatalogService {
   ): CancelablePromise<CompaniesResp> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/country/{country_code}/cheapest',
+      url: '/payout/country/{country_code}/cheapest',
       path: {
         country_code: countryCode,
       },
@@ -167,7 +168,7 @@ export class CatalogService {
   public getDestinationTokenAlternatives(destinationToken: string, idempotencyKey?: string): CancelablePromise<Service> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/service/{destination_token}/alternatives',
+      url: '/payout/service/{destination_token}/alternatives',
       path: {
         destination_token: destinationToken,
       },
@@ -198,7 +199,7 @@ export class CatalogService {
   public getDestinationToken(destinationToken: string, includePayerLogos?: boolean, idempotencyKey?: string): CancelablePromise<Service> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/service/{destination_token}',
+      url: '/payout/service/{destination_token}',
       path: {
         destination_token: destinationToken,
       },
@@ -251,7 +252,7 @@ export class CatalogService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user-agreements',
+      url: '/payout/user-agreements',
       query: {
         id: id,
       },
@@ -295,7 +296,7 @@ export class CatalogService {
   > {
     return this.httpRequest.request({
       method: 'OPTIONS',
-      url: '/user-agreements',
+      url: '/payout/user-agreements',
       errors: {
         400: `Bad request.`,
         401: `Unauthorized.`,

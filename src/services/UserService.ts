@@ -1,19 +1,20 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { FoundUser } from '../models/FoundUser';
 import type { StoredUser } from '../models/StoredUser';
 import type { TxnHistoryResp } from '../models/TxnHistoryResp';
 import type { UpdateUser } from '../models/UpdateUser';
 import type { User } from '../models/User';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class UserService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -28,7 +29,7 @@ export class UserService {
   public createUser(requestBody: User): CancelablePromise<StoredUser> {
     return this.httpRequest.request({
       method: 'POST',
-      url: '/user',
+      url: '/payout/user',
       body: requestBody,
       mediaType: 'application/json',
       errors: {
@@ -54,7 +55,7 @@ export class UserService {
   public getUserByToken(userToken: string, idempotencyKey?: string): CancelablePromise<StoredUser> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/{user_token}',
+      url: '/payout/user/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -85,7 +86,7 @@ export class UserService {
   public updateUser(userToken: string, requestBody: UpdateUser, idempotencyKey?: string): CancelablePromise<StoredUser> {
     return this.httpRequest.request({
       method: 'PUT',
-      url: '/user/{user_token}',
+      url: '/payout/user/{user_token}',
       path: {
         user_token: userToken,
       },
@@ -119,7 +120,7 @@ export class UserService {
   public userLookup(email: string, firstName: string, internalUserId: string, idempotencyKey?: string): CancelablePromise<FoundUser> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/lookup',
+      url: '/payout/user/lookup',
       headers: {
         'Idempotency-Key': idempotencyKey,
       },
@@ -151,7 +152,7 @@ export class UserService {
    * @param idempotencyKey Unique key to prevent duplicate processing
    * @param numberOfRecords Number of records to return. Defaults to 10 if no value is provided
    * @param page Page number
-   * @param showAllClients Wether to show transactions from all clients
+   * @param showAllClients Whether to show transactions from all clients
    * @returns TxnHistoryResp Succesful operation.
    * @throws ApiError
    */
@@ -168,7 +169,7 @@ export class UserService {
   ): CancelablePromise<Array<TxnHistoryResp>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/{user_token}/history',
+      url: '/payout/user/{user_token}/history',
       path: {
         user_token: userToken,
       },
@@ -206,7 +207,7 @@ export class UserService {
    * @param idempotencyKey Unique key to prevent duplicate processing
    * @param numberOfRecords Number of records to return. Defaults to 10 if no value is provided
    * @param page Page number
-   * @param showAllClients Wether to show transactions from all clients
+   * @param showAllClients Whether to show transactions from all clients
    * @returns TxnHistoryResp Succesful operation.
    * @throws ApiError
    */
@@ -222,7 +223,7 @@ export class UserService {
   ): CancelablePromise<Array<TxnHistoryResp>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/user/history',
+      url: '/payout/user/history',
       headers: {
         'Idempotency-Key': idempotencyKey,
       },

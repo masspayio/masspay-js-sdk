@@ -1,7 +1,7 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
@@ -91,7 +91,6 @@ export namespace AttrsRequirement {
     IDENTIFICATION_EXPIRATION = 'IdentificationExpiration',
     ADDRESS1 = 'Address1',
     IFRAME_PAYMENT_COLLECTION = 'IFramePaymentCollection',
-    POSTAL_CODE = 'PostalCode',
   } /**
      *
     The type of input field that is suggested for this this attribute

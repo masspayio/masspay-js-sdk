@@ -1,15 +1,16 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { TaxYearUserResp } from '../models/TaxYearUserResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class TaxService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -25,7 +26,7 @@ export class TaxService {
   public getTaxUsers(amountThreshold?: number, taxYear?: number): CancelablePromise<Array<TaxYearUserResp>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/tax',
+      url: '/payout/tax',
       query: {
         amount_threshold: amountThreshold,
         tax_year: taxYear,
@@ -45,10 +46,14 @@ export class TaxService {
    * Get link for tax interview
    * This **GET**  endpoint is used to get a W8/W9 tax interview link for a specific user identified by their `user_token`. The user should be directed to link that is obtained by this endpoint.<br>To use this endpoint, replace `user_token` in the URL path with the actual user token of the user whose tax information you want to collect.
    * @param userToken
+   * @param returnUrl If specified, the user will be redirected to this URL upon submission of the interview process
    * @returns any OK
    * @throws ApiError
    */
-  public getTaxInterviewLink(userToken: string): CancelablePromise<{
+  public getTaxInterviewLink(
+    userToken: string,
+    returnUrl?: string
+  ): CancelablePromise<{
     /**
      * URL for W8/W9 tax inteview
      */
@@ -56,9 +61,12 @@ export class TaxService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/{user_token}/tax',
+      url: '/payout/{user_token}/tax',
       path: {
         user_token: userToken,
+      },
+      query: {
+        return_url: returnUrl,
       },
       errors: {
         400: `Bad request.`,

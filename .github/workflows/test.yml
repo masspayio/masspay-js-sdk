@@ -1,0 +1,26 @@
+name: Test SDK
+on:
+  - push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Setup environment and checkout the project master
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version: '18'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Install and run tests
+      - name: Install dependencies
+        # Ci used to enforce lock existance
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test

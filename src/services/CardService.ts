@@ -1,15 +1,16 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { CardResp } from '../models/CardResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class CardService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -25,7 +26,7 @@ export class CardService {
   public getWalletCardInfo(userToken: string, walletToken: string): CancelablePromise<CardResp> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/wallet/{user_token}/{wallet_token}/card',
+      url: '/payout/wallet/{user_token}/{wallet_token}/card',
       path: {
         user_token: userToken,
         wallet_token: walletToken,
@@ -60,7 +61,7 @@ export class CardService {
   ): CancelablePromise<any> {
     return this.httpRequest.request({
       method: 'PUT',
-      url: '/wallet/{user_token}/{wallet_token}/card',
+      url: '/payout/wallet/{user_token}/{wallet_token}/card',
       path: {
         user_token: userToken,
         wallet_token: walletToken,

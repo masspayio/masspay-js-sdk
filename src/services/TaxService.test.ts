@@ -1,6 +1,7 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
 import { TaxService } from './TaxService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { TaxYearUserResp } from '../models/TaxYearUserResp';
 
 jest.mock('../core/request');
 
@@ -9,8 +10,8 @@ describe('TaxService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -37,7 +38,7 @@ describe('TaxService', () => {
           email: 'jdoe@gmail.com',
           mobile_number: '16502000226',
           business_name: 'ABC Company',
-          date_of_birth: '1975-03-24',
+          date_of_birth: '',
           balance: 1500,
           tax_id: '123-45-678',
         },
@@ -62,7 +63,7 @@ describe('TaxService', () => {
 
       const service = new TaxService(httpRequest);
 
-      const result = await service.getTaxInterviewLink('');
+      const result = await service.getTaxInterviewLink('', 'https://www.masspay.io');
 
       expect(result).toEqual(expectedResponse);
       expect(__request).toHaveBeenCalledTimes(1);

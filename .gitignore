@@ -1,4 +1,3 @@
-/.openapi-generator
 git_push.sh
 .travis.yml
 .gitlab-ci.yml

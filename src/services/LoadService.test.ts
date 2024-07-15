@@ -1,7 +1,9 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
-import { request as __request } from '../core/request';
-import { LoadTxn } from '../models/LoadTxn';
 import { LoadService } from './LoadService';
+import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { Loads } from '../models/Loads';
+import { LoadTxn } from '../models/LoadTxn';
+import { LoadTxnResp } from '../models/LoadTxnResp';
 
 jest.mock('../core/request');
 
@@ -10,8 +12,8 @@ describe('LoadService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -73,7 +75,7 @@ describe('LoadService', () => {
       const expectedResponse = [
         {
           load_token: 'ld_ba4275f2-bae1-488d-9d6f-20af1cd83574',
-          time_of_load: '2019-07-07T23:03:05',
+          time_of_load: '',
           client_load_id: 'aEjn345',
           source_token: '123e4567-e89b-12d3-a456-426614174000',
           wallet_token: '123e4567-e89b-12d3-a456-426614174000',

@@ -2,7 +2,7 @@
   "name": "masspay-js-sdk",
   "version": "2.0.0",
   "description": "Client for masspay-js-sdk",
-  "author": "MassPay Inc. <info@masspay.io>",
+  "author": "MassPay <info@masspay.io>",
   "homepage": "https://github.com/masspayio/masspay-js-sdk",
   "repository": {
     "type": "git",

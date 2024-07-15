@@ -1,8 +1,9 @@
-import { FetchHttpRequest } from '../core/FetchHttpRequest';
+import { KycService } from './KycService';
 import { request as __request } from '../core/request';
+import { FetchHttpRequest } from '../core/FetchHttpRequest';
 import { AttrVelocityRequest } from '../models/AttrVelocityRequest';
 import { IDUpload } from '../models/IDUpload';
-import { KycService } from './KycService';
+import { KYCSession } from '../models/KYCSession';
 
 jest.mock('../core/request');
 
@@ -11,8 +12,8 @@ describe('KycService', () => {
 
   beforeEach(() => {
     httpRequest = new FetchHttpRequest({
-      BASE: 'https://api.masspay.io/v0.1.4',
-      VERSION: '0.1.4',
+      BASE: 'https://api.masspay.io/v1.0.0',
+      VERSION: '1.0.0',
       WITH_CREDENTIALS: false,
       CREDENTIALS: 'include',
     });
@@ -24,7 +25,7 @@ describe('KycService', () => {
 
   describe('FindAttributesVelocity', () => {
     it('should call API with correct parameters', async () => {
-      const expectedResponse = {};
+      const expectedResponse = 'usr_37ec3232-bda3-4aed-9e79-c03b2373fa3b';
       jest.mocked(__request).mockResolvedValue(expectedResponse);
 
       const service = new KycService(httpRequest);

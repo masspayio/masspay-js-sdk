@@ -1,15 +1,16 @@
 /**
  * MassPay API
  *
- * The version of the OpenAPI document: 0.1.4
+ * The version of the OpenAPI document: 1.0.0
  * Contact: info@masspay.io
  *
  * NOTE: This file is auto generated.
  * Do not edit the file manually.
  */
-import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-import type { CancelablePromise } from '../core/CancelablePromise';
 import type { AvailableBalanceTxnResp } from '../models/AvailableBalanceTxnResp';
+
+import type { CancelablePromise } from '../core/CancelablePromise';
+import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class AccountService {
   constructor(public readonly httpRequest: BaseHttpRequest) {}
@@ -23,7 +24,7 @@ export class AccountService {
   public getAccountBalance(): CancelablePromise<Array<AvailableBalanceTxnResp>> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/account/balance',
+      url: '/payout/account/balance',
       errors: {
         400: `Bad request.`,
         401: `Unauthorized.`,
@@ -55,7 +56,7 @@ export class AccountService {
   }> {
     return this.httpRequest.request({
       method: 'GET',
-      url: '/account/statement',
+      url: '/payout/account/statement',
       query: {
         start_date: startDate,
         ending_date: endingDate,
